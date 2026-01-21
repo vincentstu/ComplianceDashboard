@@ -21,7 +21,7 @@ A modern React + Vite application for business partner risk analysis, featuring 
 
 1. Clone the repository:
    ```sh
-   git clone <your-repo-url>
+   git clone https://github.com/vincentstu/ComplianceDashboard
    cd ComplianceDashboard/Dashboard
    ```
 2. Install dependencies:
