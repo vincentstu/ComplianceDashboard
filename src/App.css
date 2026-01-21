@@ -27,6 +27,7 @@ html {
 
   /* Spacing variables */
   --page-padding: 350px;
+  --page-bottom-padding: 50px;
 
   --border-radius: 5px;
 }
@@ -34,6 +35,7 @@ html {
 .content-body {
   padding-left: var(--page-padding);
   padding-right: var(--page-padding);
+  padding-bottom: var(--page-bottom-padding);
 }
 
 .muted-text {
@@ -108,7 +110,13 @@ img {
   cursor: pointer;
 }
 
-.active-tab {
+.riskfeed-tab:hover,
+.company-tab:hover {
+  background-color: var(--light-grey);
+}
+
+.active-tab,
+.active-tab:hover {
   background-color: var(--dark-grey);
 }
 
@@ -228,6 +236,7 @@ img {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding-bottom: var(--page-bottom-padding);
 }
 
 .risk-details-section {
@@ -259,4 +268,34 @@ img {
   padding-bottom: 6px;
   font-size: 16px;
   outline: none;
+}
+
+.tag {
+  border: 1px solid;
+  border-color: var(--black);
+  border-radius: var(--border-radius);
+
+  padding: 8px;
+  width: fit-content;
+}
+
+.tag:hover {
+  background-color: var(--light-grey);
+  cursor: pointer;
+}
+
+.tag-section {
+  border: 1px solid;
+  border-color: var(--med-grey);
+  border-radius: var(--border-radius);
+
+  padding: 11px;
+  padding-left: 16px;
+  padding-right: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  width: fit-content;
 }

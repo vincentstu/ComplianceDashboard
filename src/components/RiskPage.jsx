@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import TabBar from "./TabBar";
 import SearchBar from "./SearchBar";
 import RiskCard from "./RiskCard";
+import TagsSection from "./TagsSection";
 
 import { useState } from "react";
 import companies from "../data/companyData";
@@ -38,6 +39,7 @@ const RiskPage = () => {
             />
           ))}
       </div>
+      <TagsSection />
     </div>
   );
 };
