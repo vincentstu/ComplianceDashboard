@@ -1,0 +1,262 @@
+/* CSS Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+:root {
+  /* Page theme colors */
+  --white: #ffffff;
+  --black: #000000;
+
+  --dark-grey: #7d7d7d;
+  --med-grey: #afafaf;
+  --light-grey: #dcdcdc;
+
+  --high-risk: #dc2626;
+  --med-risk: #d99300;
+  --low-risk: #16a34a;
+
+  /* Spacing variables */
+  --page-padding: 350px;
+
+  --border-radius: 5px;
+}
+
+.content-body {
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
+}
+
+.muted-text {
+  color: var(--dark-grey);
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.button {
+  cursor: pointer;
+}
+
+.page-header {
+  background-color: var(--light-grey);
+  display: flex;
+  justify-content: space-between;
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
+  padding-top: 27px;
+  padding-bottom: 27px;
+}
+
+img {
+  object-fit: contain;
+}
+
+.title-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+.dashboard-title {
+  color: var(--black);
+  font-weight: bold;
+  font-size: 36px;
+}
+
+.dashboard-subtitle {
+  color: var(--dark-grey);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.tab-bar {
+  height: 38px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  border: 1px solid var(--med-grey);
+  border-radius: var(--border-radius);
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.riskfeed-tab,
+.company-tab {
+  font-weight: bold;
+  font-size: 20px;
+  flex: 1;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.active-tab {
+  background-color: var(--dark-grey);
+}
+
+.search-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-bottom: 20px;
+}
+
+.result-text {
+  font-size: 24px;
+  color: var(--dark-grey);
+}
+
+.search-input {
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  outline: none;
+}
+
+.search-wrapper {
+  border: 1px solid var(--med-grey);
+  border-radius: var(--border-radius);
+
+  display: flex;
+  width: fit-content;
+  align-items: center;
+}
+
+.search-icon {
+  justify-self: flex-end;
+}
+
+.risk-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.risk-card {
+  border: 1px solid var(--med-grey);
+  border-radius: var(--border-radius);
+
+  padding: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  display: flex;
+  justify-content: space-between;
+
+  cursor: pointer;
+}
+
+.risk-card-company-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.risk-card-level {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+
+.prim-risk-text {
+  font-size: 20px;
+}
+
+.sec-risk-text {
+  font-size: 16px;
+}
+
+.risk-text {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.low-risk {
+  color: var(--low-risk);
+}
+.med-risk {
+  color: var(--med-risk);
+}
+.high-risk {
+  color: var(--high-risk);
+}
+
+.risk-details-body {
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
+  padding-top: 40px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.back {
+  margin-bottom: 40px;
+  font-size: 16px;
+}
+
+.risk-details-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.risk-details-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.risk-details-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.risk-details-first-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.assess-button {
+  border: 3px solid;
+  border-radius: var(--border-radius);
+  border-color: #00b446;
+  color: #00b446;
+  padding: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.assess-dropdown {
+  border: 3px solid;
+  border-radius: var(--border-radius);
+  padding: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  font-size: 16px;
+  outline: none;
+}
