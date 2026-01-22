@@ -260,3 +260,91 @@ img {
   font-size: 16px;
   outline: none;
 }
+
+.assessment-cards{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.assessment-card {
+  border: 1px solid var(--med-grey);
+  border-radius: var(--border-radius);
+
+  padding: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  display: flex;
+  justify-content: space-between;
+
+  cursor: pointer;
+}
+.assessment-details-body {
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
+  padding-top: 40px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.assessment-details-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.assessment-details-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.assessment-details-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.assessment-details-first-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sec-assessment-text {
+  font-size: 16px;
+}
+
+.prim-assessment-text {
+  font-size: 20px;
+}
+
+.assessment-text {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.assessment-card {
+  border: 1px solid var(--med-grey);
+  border-radius: var(--border-radius);
+  padding: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.assessment-card-company-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.assessment-card-level {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}

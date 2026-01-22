@@ -2,6 +2,7 @@ import CompanyData from "../data/companyData";
 import { useParams } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 const CompanyRiskDetails = () => {
   const navigate = useNavigate();
@@ -12,9 +13,10 @@ const CompanyRiskDetails = () => {
     <div>
       <PageHeader />
       <div className="risk-details-body">
-        <p className="button back" onClick={() => navigate("/")}>
+        <div className="button back" onClick={() => navigate("/")} style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+          <ArrowLeft size={20} />
           Back
-        </p>
+        </div>
         <div className="risk-details-title">
           <h1>{company.name}</h1>
           <p>{company.date}</p>
