@@ -11,10 +11,30 @@ import companies from "../data/companyData";
 const RiskPage = () => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
+  const [activeTags, setActiveTags] = useState([]);
 
-  const filteredCompanyData = companies.filter((company) =>
-    company.name.toLowerCase().includes(search.toLowerCase())
-  );
+  function riskLevel(level) {
+    if (level === 1) {
+      return "low risk";
+    } else if (level === 2) {
+      return "medium risk";
+    } else {
+      return "high risk";
+    }
+  }
+
+  function matchesTags(company, activeTags) {
+    if (activeTags.length === 0) return true;
+
+    /* Risk level */
+    return activeTags.includes(riskLevel(company.riskLevel));
+  }
+
+  const filteredCompanyData = companies
+    .filter((company) =>
+      company.name.toLowerCase().includes(search.toLowerCase())
+    )
+    .filter((company) => matchesTags(company, activeTags));
 
   return (
     <div className="content-body">
@@ -38,8 +58,8 @@ const RiskPage = () => {
               onClick={() => navigate(`/details/${companyData.id}`)}
             />
           ))}
+        <TagsSection activeTags={activeTags} setActiveTags={setActiveTags} />
       </div>
-      <TagsSection />
     </div>
   );
 };

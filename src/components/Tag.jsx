@@ -1,6 +1,6 @@
-const Tag = ({ tag }) => {
+const Tag = ({ tag, classes, onClick }) => {
   return (
-    <div className="tag">
+    <div className={`tag ${classes}`} onClick={onClick}>
       <span>{tag}</span>
     </div>
   );

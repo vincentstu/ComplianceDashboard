@@ -30,6 +30,11 @@ html {
   --page-bottom-padding: 50px;
 
   --border-radius: 5px;
+
+  /* Font variables */
+  --heading-size: 18px;
+  --text-size: 16px;
+  --label-size: 16px;
 }
 
 .content-body {
@@ -99,7 +104,7 @@ img {
 .riskfeed-tab,
 .company-tab {
   font-weight: bold;
-  font-size: 20px;
+  font-size: var(--heading-size);
   flex: 1;
   text-align: center;
   height: 100%;
@@ -129,7 +134,7 @@ img {
 }
 
 .result-text {
-  font-size: 24px;
+  font-size: var(--heading-size);
   color: var(--dark-grey);
 }
 
@@ -189,16 +194,16 @@ img {
 }
 
 .prim-risk-text {
-  font-size: 20px;
+  font-size: var(--text-size);
 }
 
 .sec-risk-text {
-  font-size: 16px;
+  font-size: var(--label-size);
 }
 
 .risk-text {
   font-weight: bold;
-  font-size: 20px;
+  font-size: var(--heading-size);
 }
 
 .low-risk {
@@ -221,8 +226,9 @@ img {
 }
 
 .back {
-  margin-bottom: 40px;
-  font-size: 16px;
+  margin-bottom: 30px;
+  font-size: var(--text-size);
+  width: fit-content;
 }
 
 .risk-details-title {
@@ -266,7 +272,7 @@ img {
   padding: 8px;
   padding-top: 6px;
   padding-bottom: 6px;
-  font-size: 16px;
+  font-size: var(--text-size);
   outline: none;
 }
 
@@ -284,7 +290,16 @@ img {
   cursor: pointer;
 }
 
+.active-tag,
+.active-tag:hover {
+  background-color: var(--black);
+  color: var(--white);
+}
+
 .tag-section {
+  position: absolute;
+  transform: translateX(-270px);
+
   border: 1px solid;
   border-color: var(--med-grey);
   border-radius: var(--border-radius);
@@ -297,5 +312,5 @@ img {
   flex-direction: column;
   gap: 10px;
 
-  width: fit-content;
+  width: 200px;
 }

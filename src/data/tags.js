@@ -1,2 +1,2 @@
-const tags = ["Preliminary Article", "High Risk", "Low Risk"];
+const tags = ["preliminary Article", "high risk", "medium risk", "low risk"];
 export default tags;
