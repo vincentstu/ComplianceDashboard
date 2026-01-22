@@ -27,13 +27,20 @@ html {
 
   /* Spacing variables */
   --page-padding: 350px;
+  --page-bottom-padding: 50px;
 
   --border-radius: 5px;
+
+  /* Font variables */
+  --heading-size: 18px;
+  --text-size: 16px;
+  --label-size: 16px;
 }
 
 .content-body {
   padding-left: var(--page-padding);
   padding-right: var(--page-padding);
+  padding-bottom: var(--page-bottom-padding);
 }
 
 .muted-text {
@@ -97,7 +104,7 @@ img {
 .riskfeed-tab,
 .company-tab {
   font-weight: bold;
-  font-size: 20px;
+  font-size: var(--heading-size);
   flex: 1;
   text-align: center;
   height: 100%;
@@ -108,7 +115,13 @@ img {
   cursor: pointer;
 }
 
-.active-tab {
+.riskfeed-tab:hover,
+.company-tab:hover {
+  background-color: var(--light-grey);
+}
+
+.active-tab,
+.active-tab:hover {
   background-color: var(--dark-grey);
 }
 
@@ -121,7 +134,7 @@ img {
 }
 
 .result-text {
-  font-size: 24px;
+  font-size: var(--heading-size);
   color: var(--dark-grey);
 }
 
@@ -181,16 +194,16 @@ img {
 }
 
 .prim-risk-text {
-  font-size: 20px;
+  font-size: var(--text-size);
 }
 
 .sec-risk-text {
-  font-size: 16px;
+  font-size: var(--label-size);
 }
 
 .risk-text {
   font-weight: bold;
-  font-size: 20px;
+  font-size: var(--heading-size);
 }
 
 .low-risk {
@@ -213,8 +226,9 @@ img {
 }
 
 .back {
-  margin-bottom: 40px;
-  font-size: 16px;
+  margin-bottom: 30px;
+  font-size: var(--text-size);
+  width: fit-content;
 }
 
 .risk-details-title {
@@ -228,6 +242,7 @@ img {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding-bottom: var(--page-bottom-padding);
 }
 
 .risk-details-section {
@@ -257,11 +272,11 @@ img {
   padding: 8px;
   padding-top: 6px;
   padding-bottom: 6px;
-  font-size: 16px;
+  font-size: var(--text-size);
   outline: none;
 }
 
-.assessment-cards{
+.assessment-cards {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -280,6 +295,7 @@ img {
 
   cursor: pointer;
 }
+
 .assessment-details-body {
   padding-left: var(--page-padding);
   padding-right: var(--page-padding);
@@ -307,6 +323,7 @@ img {
   flex-direction: column;
   gap: 10px;
 }
+
 .assessment-details-first-section {
   display: flex;
   justify-content: space-between;
@@ -325,17 +342,6 @@ img {
   font-size: 20px;
 }
 
-.assessment-card {
-  border: 1px solid var(--med-grey);
-  border-radius: var(--border-radius);
-  padding: 25px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  cursor: pointer;
-}
-
 .assessment-card-company-info {
   display: flex;
   flex-direction: column;
@@ -348,3 +354,41 @@ img {
   justify-content: center;
   align-items: flex-end;
 }
+
+.tag {
+  border: 1px solid;
+  border-color: var(--black);
+  border-radius: var(--border-radius);
+
+  padding: 8px;
+  width: fit-content;
+}
+
+.tag:hover {
+  background-color: var(--light-grey);
+  cursor: pointer;
+}
+
+.active-tag,
+.active-tag:hover {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.tag-section {
+  position: absolute;
+  transform: translateX(-270px);
+
+  border: 1px solid;
+  border-color: var(--med-grey);
+  border-radius: var(--border-radius);
+
+  padding: 11px;
+  padding-left: 16px;
+  padding-right: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 200px;

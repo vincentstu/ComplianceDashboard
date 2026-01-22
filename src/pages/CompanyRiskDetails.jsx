@@ -9,6 +9,13 @@ const CompanyRiskDetails = () => {
   const { id } = useParams();
   const company = CompanyData.find((c) => c.id == id);
 
+  // Helper to map riskLevel to dropdown value
+  const getRiskDropdownValue = (riskLevel) => {
+    if (riskLevel === 1) return "low";
+    if (riskLevel === 2) return "medium";
+    return "high";
+  };
+
   return (
     <div>
       <PageHeader />
@@ -34,11 +41,11 @@ const CompanyRiskDetails = () => {
               <p className="prim-risk-text">{company.date}</p>
             </div>
           </div>
-          <div className="risk-details-section" style={{ width: "80%" }}>
+          <div className="risk-details-section">
             <p className="sec-risk-text muted-text">Reasoning:</p>
             <p className="prim-risk-text">{company.reasoning}</p>
           </div>
-          <div className="risk-details-section" style={{ width: "80%" }}>
+          <div className="risk-details-section">
             <p className="sec-risk-text muted-text">Summary:</p>
             <p className="prim-risk-text">{company.summary}</p>
           </div>
@@ -56,7 +63,10 @@ const CompanyRiskDetails = () => {
             style={{ flexDirection: "row", alignItems: "center", gap: "10px" }}
           >
             <div className="button assess-button">Assessed</div>
-            <select className="button assess-dropdown">
+            <select
+              className="button assess-dropdown"
+              defaultValue={getRiskDropdownValue(company.riskLevel)}
+            >
               <option value="low">Low Risk</option>
               <option value="medium">Medium Risk</option>
               <option value="high">High Risk</option>
