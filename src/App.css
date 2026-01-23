@@ -138,6 +138,11 @@ img {
   color: var(--dark-grey);
 }
 
+.no-result {
+  align-self: center;
+  font-size: var(--text-size);
+}
+
 .search-input {
   border: none;
   border-radius: var(--border-radius);
