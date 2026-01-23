@@ -330,16 +330,16 @@ img {
 }
 
 .sec-assessment-text {
-  font-size: 16px;
+  font-size: var(--label-size);
 }
 
 .prim-assessment-text {
-  font-size: 20px;
+  font-size: var(--text-size);
 }
 
 .assessment-text {
   font-weight: bold;
-  font-size: 20px;
+  font-size: var(--text-size);
 }
 
 .assessment-card-company-info {
@@ -392,3 +392,4 @@ img {
   gap: 10px;
 
   width: 200px;
+}

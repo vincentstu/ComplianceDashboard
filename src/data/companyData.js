@@ -14,7 +14,7 @@ const companies = [
   {
     id: 2,
     name: "Apple Germany GmbH",
-    riskCategory: "Money Laundering risk",
+    riskCategory: "Fraud and Tax Evasion",
     riskLevel: 3,
     date: "18.1.2026",
     reasoning:

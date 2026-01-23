@@ -5,54 +5,76 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
 const CompanyAssessmentDetails = () => {
-    const navigate = useNavigate();
-    const { id } = useParams();
-    const company = CompanyData.find((c) => c.id == id);
-    
-    // Get all entries for this company and sum their risk levels
-    const companyEntries = CompanyData.filter((c) => c.name === company?.name);
-    const totalRiskSum = companyEntries.reduce((sum, c) => sum + c.riskLevel, 0);
-    const assessmentPercentage = (totalRiskSum / (3 * companyEntries.length)) * 100; // Average per occurrence
-    
-    const highRiskCount = companyEntries.filter((c) => c.riskLevel === 3).length;
-    const mediumRiskCount = companyEntries.filter((c) => c.riskLevel === 2).length;
-    const lowRiskCount = companyEntries.filter((c) => c.riskLevel === 1).length;
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const company = CompanyData.find((c) => c.id == id);
 
-    return (
-        <div>
-            <PageHeader />
-            <div className="assessment-details-body">
-                <div className="button back" onClick={() => navigate("/")} style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-                    <ArrowLeft size={20} />
-                    Back
-                </div>
-                <div className="assessment-details-title">
-                    <h1>{company?.name}</h1>
-                </div>
-                <div className="assessment-details-content">
-                    <div className="assessment-details-first-section">
-                        <p className="sec-assessment-text">Aggregated Risk Score:</p>
-                        <p className="prim-assessment-text">{Math.round(assessmentPercentage)}%</p>
-                    </div>
-                    <div className="assessment-details-first-section">
-                        <p className="sec-assessment-text">Total Risk Sum: {totalRiskSum}</p>
-                    </div>
-                    <div className="assessment-details-first-section">
-                        <p className="high-risk sec-assessment-text">High Risk: {highRiskCount}</p>
-                    </div>
-                    <div className="assessment-details-first-section">
-                        <p className="med-risk sec-assessment-text">Medium Risk: {mediumRiskCount}</p>
-                    </div>
-                    <div className="assessment-details-first-section">
-                        <p className="low-risk sec-assessment-text">Low Risk: {lowRiskCount}</p>
-                    </div>
-                    <div className="assessment-details-first-section">
-                        <p className="assessment-text muted-text">Associated Topics:</p>
-                        <p className="assessment-text">{company?.riskCategory}</p>
-                    </div>
-                </div>
-            </div>
+  // Get all entries for this company and sum their risk levels
+  const companyEntries = CompanyData.filter((c) => c.name === company?.name);
+  const companyRiskCategories = Array.from(
+    new Set(companyEntries.map((c) => c.riskCategory))
+  );
+  const totalRiskSum = companyEntries.reduce((sum, c) => sum + c.riskLevel, 0);
+  const assessmentPercentage =
+    (totalRiskSum / (3 * companyEntries.length)) * 100; // Average per occurrence
+
+  const highRiskCount = companyEntries.filter((c) => c.riskLevel === 3).length;
+  const mediumRiskCount = companyEntries.filter(
+    (c) => c.riskLevel === 2
+  ).length;
+  const lowRiskCount = companyEntries.filter((c) => c.riskLevel === 1).length;
+
+  return (
+    <div>
+      <PageHeader />
+      <div className="assessment-details-body">
+        <div
+          className="button back"
+          onClick={() => navigate("/")}
+          style={{ display: "flex", alignItems: "center", gap: "5px" }}
+        >
+          <ArrowLeft size={20} />
+          Back
         </div>
-    );
+        <div className="assessment-details-title">
+          <h1>{company?.name}</h1>
+        </div>
+        <div className="assessment-details-content">
+          <div className="assessment-details-first-section">
+            <p className="sec-assessment-text">Aggregated Risk Score:</p>
+            <p className="prim-assessment-text">
+              {Math.round(assessmentPercentage)}%
+            </p>
+          </div>
+          <div className="assessment-details-first-section">
+            <p className="sec-assessment-text">
+              Total Risk Sum: {totalRiskSum}
+            </p>
+          </div>
+          <div className="assessment-details-first-section">
+            <p className="high-risk sec-assessment-text">
+              High Risk: {highRiskCount}
+            </p>
+          </div>
+          <div className="assessment-details-first-section">
+            <p className="med-risk sec-assessment-text">
+              Medium Risk: {mediumRiskCount}
+            </p>
+          </div>
+          <div className="assessment-details-first-section">
+            <p className="low-risk sec-assessment-text">
+              Low Risk: {lowRiskCount}
+            </p>
+          </div>
+          <div className="assessment-details-first-section">
+            <p className="assessment-text muted-text">Associated Topics:</p>
+            <p className="assessment-text">
+              {companyRiskCategories.join(", ")}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 export default CompanyAssessmentDetails;
