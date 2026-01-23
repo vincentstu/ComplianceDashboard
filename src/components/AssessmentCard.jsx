@@ -1,6 +1,16 @@
 import React from "react";
-const AssesmentCard = ({ companyData, onClick }) => {
-  const assessmentLevelPercentage = (companyData.riskLevel / 3) * 100; //Berechnungslogik
+const AssesmentCard = ({ companyData, allCompanies, onClick }) => {
+  // Get all entries for this company and sum their weighted risk levels
+  const companyEntries = allCompanies.filter((c) => c.name === companyData.name);
+  
+  // Apply weights: Low=1, Medium=2, High=3
+  const weights = { 1: 1, 2: 3, 3: 9 };
+  
+  const totalWeightedSum = companyEntries.reduce((sum, c) => { return sum + weights[c.riskLevel] || 0}, 0);
+  const maxPossibleWeight = 9 * companyEntries.length; // Maximum weight if all entries are High Risk
+  const assessmentLevelPercentage = (totalWeightedSum / maxPossibleWeight) * 100;
+  const aggregatedRiskLevel = assessmentLevelPercentage < 34 ? 1 : assessmentLevelPercentage < 67 ? 2 : 3;
+  
   return (
     <div className="assessment-card" onClick={onClick}>
       <div className="assessment-card-company-info">
@@ -14,16 +24,16 @@ const AssesmentCard = ({ companyData, onClick }) => {
       <div className="assessment-card-level">
         <p
           className={`assessment-text bold-text ${
-            companyData.riskLevel === 1
+            aggregatedRiskLevel === 1
               ? "low-risk"
-              : companyData.riskLevel === 2
+              : aggregatedRiskLevel === 2
               ? "med-risk"
               : "high-risk"
           }`}
         >
-          {companyData.riskLevel === 1
+          {aggregatedRiskLevel === 1
             ? "Low Risk"
-            : companyData.riskLevel === 2
+            : aggregatedRiskLevel === 2
             ? "Medium Risk"
             : "High Risk"}
         </p>
