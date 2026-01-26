@@ -38,7 +38,6 @@ const RiskPage = () => {
 
   function matchesTags(company, activeTags) {
     if (activeTags.length === 0) return true;
-
     const matchesRisk =
       activeTags.includes(riskLevel(company.riskLevel)) ||
       !(
@@ -50,6 +49,7 @@ const RiskPage = () => {
     console.log(matchesRisk);
     console.log(matchesToday);
     return matchesRisk && matchesToday;
+
   }
 
   const filteredCompanyData = companies
@@ -94,6 +94,7 @@ const RiskPage = () => {
         </>
       )}
       {activeTab === "company" && <AssessmentPage />}
+      
     </div>
   );
 };
