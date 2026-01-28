@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import TabBar from "./TabBar";
 import SearchBar from "./SearchBar";
 import AssesmentCard from "./AssessmentCard";
+import TagsSection from "./TagsSection";
 
 import { useState } from "react";
 import companies from "../data/companyData";
@@ -11,14 +12,39 @@ const AssessmentPage = () => {
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState("company");
   const navigate = useNavigate();
+  const [activeTags, setActiveTags] = useState([]);
 
-  // Remove duplicate companies by name
+  // Remove duplicate companies by name, keeping the one with highest risk level
   const uniqueCompanies = Array.from(
-    new Map(companies.map((c) => [c.name, c])).values()
+    new Map(
+      companies
+        .sort((a, b) => b.riskLevel - a.riskLevel)
+        .map((c) => [c.name, c])
+    ).values()
   );
-  const filteredCompanyData = uniqueCompanies.filter((company) =>
-    company.name.toLowerCase().includes(search.toLowerCase())
-  );
+
+  function riskLevel(level) {
+    if (level === 1) {
+      return "low risk";
+    } else if (level === 2) {
+      return "medium risk";
+    } else {
+      return "high risk";
+    }
+  }
+
+  function matchesTags(company, activeTags) {
+    if (activeTags.length === 0) return true;
+
+    /* Risk level */
+    return activeTags.includes(riskLevel(company.riskLevel));
+  }
+
+  const filteredCompanyData = uniqueCompanies
+    .filter((company) =>
+      company.name.toLowerCase().includes(search.toLowerCase())
+    )
+    .filter((company) => matchesTags(company, activeTags));
 
   return (
     <>
@@ -38,9 +64,11 @@ const AssessmentPage = () => {
             <AssesmentCard
               key={companyData.id}
               companyData={companyData}
+              allCompanies={companies}
               onClick={() => navigate(`/assessment-details/${companyData.id}`)}
             />
           ))}
+          <TagsSection activeTags={activeTags} setActiveTags={setActiveTags} />
       </div>
     </>
   );
