@@ -138,11 +138,6 @@ img {
   color: var(--dark-grey);
 }
 
-.no-result {
-  align-self: center;
-  font-size: var(--text-size);
-}
-
 .search-input {
   border: none;
   border-radius: var(--border-radius);
@@ -281,7 +276,7 @@ img {
   outline: none;
 }
 
-.assessment-cards {
+.assessment-cards{
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -300,7 +295,6 @@ img {
 
   cursor: pointer;
 }
-
 .assessment-details-body {
   padding-left: var(--page-padding);
   padding-right: var(--page-padding);
@@ -328,23 +322,33 @@ img {
   flex-direction: column;
   gap: 10px;
 }
-
 .assessment-details-first-section {
   display: flex;
   justify-content: space-between;
 }
 
 .sec-assessment-text {
-  font-size: var(--label-size);
+  font-size: 16px;
 }
 
 .prim-assessment-text {
-  font-size: var(--text-size);
+  font-size: 20px;
 }
 
 .assessment-text {
   font-weight: bold;
-  font-size: var(--text-size);
+  font-size: 20px;
+}
+
+.assessment-card {
+  border: 1px solid var(--med-grey);
+  border-radius: var(--border-radius);
+  padding: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
 .assessment-card-company-info {
@@ -358,8 +362,6 @@ img {
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-}
-
 .tag {
   border: 1px solid;
   border-color: var(--black);
@@ -397,4 +399,5 @@ img {
   gap: 10px;
 
   width: 200px;
+}
 }
