@@ -9,14 +9,25 @@ const CompanyAssessmentDetails = () => {
   const { id } = useParams();
   const company = CompanyData.find((c) => c.id == id);
 
+  function calculateAssessmentLevel(companyName) {
+    const companyEntries = companies.filter((c) => c.name === companyName);
+    const weights = { 1: 1, 2: 2, 3: 4 };
+    const sum = companyEntries.reduce((acc, c) => acc + weights[c.riskLevel] || 0, 0);
+
+    const maxPossibleWeight = weights[3] * companyEntries.length; // Maximum weight if all entries are High Risk
+    const assessmentLevelPercentage = (sum / maxPossibleWeight) * 100;
+    const aggregatedRiskLevel = assessmentLevelPercentage < 34 ? 1 : assessmentLevelPercentage < 67 ? 2 : 3;
+
+    return { assessmentLevelPercentage, aggregatedRiskLevel };
+  }
+
   // Get all entries for this company and sum their risk levels
   const companyEntries = CompanyData.filter((c) => c.name === company?.name);
   const companyRiskCategories = Array.from(
     new Set(companyEntries.map((c) => c.riskCategory))
   );
   const totalRiskSum = companyEntries.reduce((sum, c) => sum + c.riskLevel, 0);
-  const assessmentPercentage =
-    (totalRiskSum / (3 * companyEntries.length)) * 100; // Average per occurrence
+  const assessmentPercentage = calculateAssessmentLevel(companyEntries).assessmentLevelPercentage;
 
   const highRiskCount = companyEntries.filter((c) => c.riskLevel === 3).length;
   const mediumRiskCount = companyEntries.filter(
