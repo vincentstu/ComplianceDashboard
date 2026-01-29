@@ -14,11 +14,14 @@ const CompanyAssessmentDetails = () => {
   const companyRiskCategories = Array.from(
     new Set(companyEntries.map((c) => c.riskCategory))
   );
-  
-  const totalRiskSum = companyEntries.reduce((sum, c) => sum + c.riskLevel, 0);
-  const assessmentPercentage =
-    (totalRiskSum / (3 * companyEntries.length)) * 100; // Average per occurrence
 
+  const weights = { 1: 1, 2: 2, 3: 4 };
+  const totalWeightedSum = companyEntries.reduce((sum, c) => {return sum + weights[c.riskLevel] || 0}, 0);
+  const maxPossibleWeight = 4 * companyEntries.length; // Maximum weight if all entries are High Risk
+  const assessmentLevelPercentage = (totalWeightedSum / maxPossibleWeight) * 100;
+
+  const totalRiskSum = companyEntries.reduce((sum, c) => sum + c.riskLevel, 0);
+  
   const highRiskCount = companyEntries.filter((c) => c.riskLevel === 3).length;
   const mediumRiskCount = companyEntries.filter(
     (c) => c.riskLevel === 2
@@ -44,7 +47,7 @@ const CompanyAssessmentDetails = () => {
           <div className="assessment-details-first-section">
             <p className="sec-assessment-text">Aggregated Risk Score:</p>
             <p className="prim-assessment-text">
-              {Math.round(assessmentPercentage)}%
+              {Math.round(assessmentLevelPercentage)}%
             </p>
           </div>
           <div className="assessment-details-first-section">
