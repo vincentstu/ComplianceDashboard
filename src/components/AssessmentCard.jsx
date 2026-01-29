@@ -6,8 +6,8 @@ const AssesmentCard = ({ companyData, allCompanies, onClick }) => {
   // Apply weights: Low=1, Medium=2, High=3
   const weights = { 1: 1, 2: 2, 3: 4 };
   
-  const totalWeightedSum = companyEntries.reduce((sum, c) => sum + weights[c.riskLevel] || 0, 0);
-  const maxPossibleWeight = weights[4] * companyEntries.length; // Maximum weight if all entries are High Risk
+  const totalWeightedSum = companyEntries.reduce((sum, c) => {return sum + weights[c.riskLevel] || 0}, 0);
+  const maxPossibleWeight = 4 * companyEntries.length; // Maximum weight if all entries are High Risk
   const assessmentLevelPercentage = (totalWeightedSum / maxPossibleWeight) * 100;
   const aggregatedRiskLevel = assessmentLevelPercentage < 34 ? 1 : assessmentLevelPercentage < 67 ? 2 : 3;
   
