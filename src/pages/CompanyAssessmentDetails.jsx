@@ -11,16 +11,18 @@ const CompanyAssessmentDetails = () => {
 
   // Get all entries for this company and sum their risk levels
   const companyEntries = CompanyData.filter((c) => c.name === company?.name);
-  const companyRiskCategories = Array.from(
-    new Set(companyEntries.map((c) => c.riskCategory))
-  );
+  const categoryCounts = companyEntries.reduce((acc, entry) => {
+    acc[entry.riskCategory] = (acc[entry.riskCategory] || 0) + 1;
+    return acc;
+  }, {});
+
 
   const weights = { 1: 1, 2: 2, 3: 4 };
   const totalWeightedSum = companyEntries.reduce((sum, c) => {return sum + weights[c.riskLevel] || 0}, 0);
   const maxPossibleWeight = 4 * companyEntries.length; // Maximum weight if all entries are High Risk
   const assessmentLevelPercentage = (totalWeightedSum / maxPossibleWeight) * 100;
 
-  const totalRiskSum = companyEntries.reduce((sum, c) => sum + c.riskLevel, 0);
+  const totalArticleCount = companyEntries.length;
   
   const highRiskCount = companyEntries.filter((c) => c.riskLevel === 3).length;
   const mediumRiskCount = companyEntries.filter(
@@ -52,7 +54,7 @@ const CompanyAssessmentDetails = () => {
           </div>
           <div className="assessment-details-first-section">
             <p className="sec-assessment-text">
-              Total Risk Sum: {totalRiskSum}
+              Total Articles: {totalArticleCount}
             </p>
           </div>
           <div className="assessment-details-first-section">
@@ -73,7 +75,11 @@ const CompanyAssessmentDetails = () => {
           <div className="assessment-details-first-section">
             <p className="assessment-text muted-text">Associated Topics:</p>
             <p className="assessment-text">
-              {companyRiskCategories.join(", ")}
+              {Object.entries(categoryCounts).map(([category, count]) => (
+                <div key={category}>
+                  {category} ({count})
+                </div>
+              ))}
             </p>
           </div>
         </div>
