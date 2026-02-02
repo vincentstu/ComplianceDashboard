@@ -33,7 +33,7 @@ function App() {
         />
         <Route
           path="/assessment-details/:id"
-          element={<CompanyAssessmentDetails />}
+          element={<CompanyAssessmentDetails companyData={companies} />}
         />
       </Routes>
     </div>

@@ -2,7 +2,12 @@ import React from "react";
 
 const RiskCard = ({ companyData, onClick }) => {
   return (
-    <div className="risk-card" onClick={onClick}>
+    <div
+      className={`risk-card ${
+        companyData.assessed ? " risk-card-assessed" : ""
+      }`}
+      onClick={onClick}
+    >
       <div className="risk-card-company-info">
         <p className="sec-risk-text muted-text">Company:</p>
         <p className="prim-risk-text bold-text">{companyData.name}</p>

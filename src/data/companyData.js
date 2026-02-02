@@ -30,7 +30,7 @@ const companies = [
     name: "BMW Automotives",
     riskCategory: "Human Rights violation risk",
     riskLevel: 2,
-    date: "20.12.2025",
+    date: "2.2.2026",
     reasoning:
       "Adverse media reveals with recent issues of the business partner with regard to tax. This is an indication that the business partner poses a certain risk to KION to become involved in tax evasion schemes and possibly other topics. The topic is considered a high risk topic, however the probability of KION being negatively affected by this is consideredn relatively low.",
     summary:

@@ -6,24 +6,30 @@ import AssesmentCard from "./AssessmentCard";
 import TagsSection from "./TagsSection";
 
 import { useState } from "react";
-import companies from "../data/companyData";
 
-
-
-const AssessmentPage = () => {
+const AssessmentPage = ({ companies }) => {
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState("company");
   const navigate = useNavigate();
   const [activeTags, setActiveTags] = useState([]);
 
+  //calculate aggregated risk level for company
   function calculateAssessmentLevel(companyName) {
     const companyEntries = companies.filter((c) => c.name === companyName);
     const weights = { 1: 1, 2: 2, 3: 4 };
-    const sum = companyEntries.reduce((acc, c) => acc + weights[c.riskLevel] || 0, 0);
+    const sum = companyEntries.reduce(
+      (acc, c) => acc + weights[c.riskLevel] || 0,
+      0
+    );
 
     const maxPossibleWeight = weights[3] * companyEntries.length; // Maximum weight if all entries are High Risk
     const assessmentLevelPercentage = (sum / maxPossibleWeight) * 100;
-    const aggregatedRiskLevel = assessmentLevelPercentage < 34 ? 1 : assessmentLevelPercentage < 67 ? 2 : 3;
+    const aggregatedRiskLevel =
+      assessmentLevelPercentage < 34
+        ? 1
+        : assessmentLevelPercentage < 67
+        ? 2
+        : 3;
 
     return { assessmentLevelPercentage, aggregatedRiskLevel };
   }
@@ -32,10 +38,14 @@ const AssessmentPage = () => {
   const uniqueCompanies = Array.from(
     new Map(
       companies
-        .sort((a, b) => {b.riskLevel - a.riskLevel})
+        .sort((a, b) => {
+          b.riskLevel - a.riskLevel;
+        })
         .map((c) => [c.name, c])
     ).values()
   );
+
+  const resultCount = uniqueCompanies.length;
 
   function riskLevel(level) {
     if (level === 1) {
@@ -64,7 +74,7 @@ const AssessmentPage = () => {
     <>
       <div className="search-section">
         <div>
-          <p className="result-text">Results</p>
+          <p className="result-text">{resultCount} Results</p>
         </div>
         <div>
           <SearchBar value={search} onChange={setSearch} />
@@ -86,7 +96,7 @@ const AssessmentPage = () => {
               onClick={() => navigate(`/assessment-details/${companyData.id}`)}
             />
           ))}
-          <TagsSection activeTags={activeTags} setActiveTags={setActiveTags} />
+        <TagsSection activeTags={activeTags} setActiveTags={setActiveTags} />
       </div>
     </>
   );

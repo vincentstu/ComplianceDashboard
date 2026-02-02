@@ -14,6 +14,8 @@ const RiskPage = ({ companies }) => {
   const navigate = useNavigate();
   const [activeTags, setActiveTags] = useState([]);
 
+  const resultCount = companies.length;
+
   function riskLevel(level) {
     if (level === 1) {
       return "low risk";
@@ -64,7 +66,7 @@ const RiskPage = ({ companies }) => {
         <>
           <div className="search-section">
             <div>
-              <p className="result-text">Results</p>
+              <p className="result-text">{resultCount} Results</p>
             </div>
             <div>
               <SearchBar value={search} onChange={setSearch} />
@@ -92,7 +94,7 @@ const RiskPage = ({ companies }) => {
           </div>
         </>
       )}
-      {activeTab === "company" && <AssessmentPage />}
+      {activeTab === "company" && <AssessmentPage companies={companies} />}
     </div>
   );
 };

@@ -4,26 +4,28 @@ import PageHeader from "../components/PageHeader";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
-const CompanyAssessmentDetails = () => {
+const CompanyAssessmentDetails = ({ companyData }) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const company = CompanyData.find((c) => c.id == id);
+  const company = companyData.find((c) => c.id == id);
 
   // Get all entries for this company and sum their risk levels
-  const companyEntries = CompanyData.filter((c) => c.name === company?.name);
+  const companyEntries = companyData.filter((c) => c.name === company?.name);
   const categoryCounts = companyEntries.reduce((acc, entry) => {
     acc[entry.riskCategory] = (acc[entry.riskCategory] || 0) + 1;
     return acc;
   }, {});
 
-
   const weights = { 1: 1, 2: 2, 3: 4 };
-  const totalWeightedSum = companyEntries.reduce((sum, c) => {return sum + weights[c.riskLevel] || 0}, 0);
+  const totalWeightedSum = companyEntries.reduce((sum, c) => {
+    return sum + weights[c.riskLevel] || 0;
+  }, 0);
   const maxPossibleWeight = 4 * companyEntries.length; // Maximum weight if all entries are High Risk
-  const assessmentLevelPercentage = (totalWeightedSum / maxPossibleWeight) * 100;
+  const assessmentLevelPercentage =
+    (totalWeightedSum / maxPossibleWeight) * 100;
 
   const totalArticleCount = companyEntries.length;
-  
+
   const highRiskCount = companyEntries.filter((c) => c.riskLevel === 3).length;
   const mediumRiskCount = companyEntries.filter(
     (c) => c.riskLevel === 2

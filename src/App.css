@@ -398,3 +398,8 @@ img {
 
   width: 200px;
 }
+
+.risk-card-assessed {
+  /* different color for assessed cards? */
+  background-color: var(--light-grey);
+}
