@@ -3,11 +3,13 @@ import { useParams } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import { riskCategories } from "../data/riskCategories";
+import { useState } from "react";
 
-const CompanyRiskDetails = () => {
+const CompanyRiskDetails = ({ companies, setCompanies }) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const company = CompanyData.find((c) => c.id == id);
+  const company = companies.find((c) => c.id == id);
 
   // Helper to map riskLevel to dropdown value
   const getRiskDropdownValue = (riskLevel) => {
@@ -16,11 +18,49 @@ const CompanyRiskDetails = () => {
     return "high";
   };
 
+  const getRiskNumber = (riskString) => {
+    let riskLevelNum = 3;
+    if (riskString === "low") riskLevelNum = 1;
+    else if (riskString === "medium") riskLevelNum = 2;
+    return riskLevelNum;
+  };
+
+  const [riskLevel, setRiskLevel] = useState(
+    getRiskDropdownValue(company.riskLevel)
+  );
+  const [riskCategory, setRiskCategory] = useState(company.riskCategory);
+
+  const handleAssess = () => {
+    //ASSESS LOGIC HERE
+    //changes in risk level and category should get saved in DB
+
+    // Temporary save in companyData file
+    setCompanies((prevCompanies) =>
+      prevCompanies.map((company) =>
+        company.id === Number(id)
+          ? {
+              ...company,
+              riskLevel: getRiskNumber(riskLevel),
+              riskCategory: riskCategory,
+              assessed: true,
+            }
+          : company
+      )
+    );
+
+    console.log("Saved", riskLevel, riskCategory);
+    //---------------------
+  };
+
   return (
     <div>
       <PageHeader />
       <div className="risk-details-body">
-        <div className="button back" onClick={() => navigate("/")} style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+        <div
+          className="button back"
+          onClick={() => navigate("/")}
+          style={{ display: "flex", alignItems: "center", gap: "5px" }}
+        >
           <ArrowLeft size={20} />
           Back
         </div>
@@ -62,14 +102,30 @@ const CompanyRiskDetails = () => {
             className="risk-details-section"
             style={{ flexDirection: "row", alignItems: "center", gap: "10px" }}
           >
-            <div className="button assess-button">Assessed</div>
+            <div className="button assess-button" onClick={handleAssess}>
+              Assessed
+            </div>
             <select
               className="button assess-dropdown"
-              defaultValue={getRiskDropdownValue(company.riskLevel)}
+              name="riskLevel"
+              value={riskLevel}
+              onChange={(e) => setRiskLevel(e.target.value)}
             >
               <option value="low">Low Risk</option>
               <option value="medium">Medium Risk</option>
               <option value="high">High Risk</option>
+            </select>
+            <select
+              className="button assess-dropdown"
+              name="riskCategory"
+              value={riskCategory}
+              onChange={(e) => setRiskCategory(e.target.value)}
+            >
+              {riskCategories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
             </select>
           </div>
         </div>

@@ -6,10 +6,9 @@ import RiskCard from "./RiskCard";
 import AssessmentPage from "./AssessmentPage";
 import TagsSection from "./TagsSection";
 
-import { useState } from "react";
-import companies from "../data/companyData";
+import { useState, useEffect } from "react";
 
-const RiskPage = () => {
+const RiskPage = ({ companies }) => {
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState("risk");
   const navigate = useNavigate();
