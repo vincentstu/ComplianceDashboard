@@ -4,6 +4,7 @@ import PageHeader from "../components/PageHeader";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
+// Component to display detailed assessment of a company
 const CompanyAssessmentDetails = ({ companyData }) => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -15,10 +16,11 @@ const CompanyAssessmentDetails = ({ companyData }) => {
     acc[entry.riskCategory] = (acc[entry.riskCategory] || 0) + 1;
     return acc;
   }, {});
-
+  
+  // Calculate weighted risk score
   const weights = { 1: 1, 2: 2, 3: 4 };
   const totalWeightedSum = companyEntries.reduce((sum, c) => {
-    return sum + weights[c.riskLevel] || 0;
+    return sum + (weights[c.riskLevel] || 0);
   }, 0);
   const maxPossibleWeight = 4 * companyEntries.length; // Maximum weight if all entries are High Risk
   const assessmentLevelPercentage =

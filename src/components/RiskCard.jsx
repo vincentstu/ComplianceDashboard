@@ -1,5 +1,5 @@
 import React from "react";
-
+// Component to display risk information for a company
 const RiskCard = ({ companyData, onClick }) => {
   return (
     <div

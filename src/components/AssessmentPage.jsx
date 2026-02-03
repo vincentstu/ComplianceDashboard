@@ -21,7 +21,8 @@ const AssessmentPage = ({ companies }) => {
       (acc, c) => acc + weights[c.riskLevel] || 0,
       0
     );
-
+    
+    // calculate assessment level percentage
     const maxPossibleWeight = weights[3] * companyEntries.length; // Maximum weight if all entries are High Risk
     const assessmentLevelPercentage = (sum / maxPossibleWeight) * 100;
     const aggregatedRiskLevel =
@@ -64,6 +65,7 @@ const AssessmentPage = ({ companies }) => {
     return activeTags.includes(riskLevel(company.riskLevel));
   }
 
+// Filter companies based on search and active tags
   const filteredCompanyData = uniqueCompanies
     .filter((company) =>
       company.name.toLowerCase().includes(search.toLowerCase())

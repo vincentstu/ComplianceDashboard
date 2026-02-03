@@ -1,6 +1,7 @@
 import Tag from "./Tag";
 import tags from "../data/tags";
 
+// Component to display and manage a section of tags
 const TagsSection = ({ activeTags, setActiveTags }) => {
   function toggleTag(tag) {
     setActiveTags((prev) =>

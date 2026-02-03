@@ -6,6 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { riskCategories } from "../data/riskCategories";
 import { useState } from "react";
 
+// Component to display and assess risk details of a specific company
 const CompanyRiskDetails = ({ companies, setCompanies }) => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -18,6 +19,7 @@ const CompanyRiskDetails = ({ companies, setCompanies }) => {
     return "high";
   };
 
+  // Helper to map dropdown value back to riskLevel number
   const getRiskNumber = (riskString) => {
     let riskLevelNum = 3;
     if (riskString === "low") riskLevelNum = 1;
@@ -25,6 +27,7 @@ const CompanyRiskDetails = ({ companies, setCompanies }) => {
     return riskLevelNum;
   };
 
+  // State for risk level and category selections
   const [riskLevel, setRiskLevel] = useState(
     getRiskDropdownValue(company.riskLevel)
   );

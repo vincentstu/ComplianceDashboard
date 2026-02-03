@@ -1,5 +1,6 @@
 import React from "react";
 
+// TabBar component to switch between Risk Feed and Company Assessment tabs
 const TabBar = ({ activeTab, onTabChange }) => {
   return (
     <div className="tab-bar">

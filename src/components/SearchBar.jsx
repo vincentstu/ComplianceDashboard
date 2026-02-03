@@ -1,6 +1,7 @@
 import React from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
 
+// SearchBar Component
 const SearchBar = ({ value, onChange }) => {
   return (
     <div className="search-wrapper">

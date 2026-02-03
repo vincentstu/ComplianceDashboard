@@ -8,6 +8,7 @@ import TagsSection from "./TagsSection";
 
 import { useState, useEffect } from "react";
 
+// Component to display and filter risk information for companies
 const RiskPage = ({ companies }) => {
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState("risk");
@@ -26,6 +27,7 @@ const RiskPage = ({ companies }) => {
     }
   }
 
+// Check if the date corresponds to today
   function isToday(date) {
     // Accepts date string in format 'DD.MM.YYYY'
     const [day, month, year] = date.split(".");
@@ -37,6 +39,7 @@ const RiskPage = ({ companies }) => {
     );
   }
 
+  // Check if a company matches the active tags
   function matchesTags(company, activeTags) {
     if (activeTags.length === 0) return true;
 

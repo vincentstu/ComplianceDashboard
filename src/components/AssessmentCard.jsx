@@ -1,4 +1,5 @@
 import React from "react";
+// Component to display aggregated assessment information for a company
 const AssesmentCard = ({ companyData, allCompanies, onClick }) => {
   // Get all entries for this company and sum their weighted risk levels
   const companyEntries = allCompanies.filter((c) => c.name === companyData.name);
@@ -6,6 +7,7 @@ const AssesmentCard = ({ companyData, allCompanies, onClick }) => {
   // Apply weights: Low=1, Medium=2, High=3
   const weights = { 1: 1, 2: 2, 3: 4 };
   
+  // Calculate total weighted sum and assessment level percentage
   const totalWeightedSum = companyEntries.reduce((sum, c) => {return sum + weights[c.riskLevel] || 0}, 0);
   const maxPossibleWeight = 4 * companyEntries.length; // Maximum weight if all entries are High Risk
   const assessmentLevelPercentage = (totalWeightedSum / maxPossibleWeight) * 100;

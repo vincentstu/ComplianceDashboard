@@ -10,6 +10,7 @@ import CompanyAssessmentDetails from "./pages/CompanyAssessmentDetails";
 import mockData from "./data/companyData";
 import { useEffect } from "react";
 
+// The main application component that sets up routing and state management
 function App() {
   const [companies, setCompanies] = useState([]);
 
