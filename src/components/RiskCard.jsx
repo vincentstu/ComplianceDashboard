@@ -4,7 +4,7 @@ const RiskCard = ({ companyData, onClick }) => {
   return (
     <div
       className={`risk-card ${
-        companyData.assessed ? " risk-card-assessed" : ""
+        companyData.verified ? " risk-card-assessed" : ""
       }`}
       onClick={onClick}
     >
@@ -21,14 +21,18 @@ const RiskCard = ({ companyData, onClick }) => {
               ? "low-risk"
               : companyData.riskLevel === 2
               ? "med-risk"
-              : "high-risk"
+              : companyData.riskLevel === 3
+              ? "high-risk"
+              : "no-risk"
           }`}
         >
           {companyData.riskLevel === 1
             ? "Low Risk"
             : companyData.riskLevel === 2
             ? "Medium Risk"
-            : "High Risk"}
+            : companyData.riskLevel === 3
+            ? "High Risk"
+            : "No Risk"}
         </p>
         <p className="sec-risk-text muted-text">{companyData.date}</p>
       </div>

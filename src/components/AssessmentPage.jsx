@@ -46,8 +46,6 @@ const AssessmentPage = ({ companies }) => {
     ).values()
   );
 
-  const resultCount = uniqueCompanies.length;
-
   function riskLevel(level) {
     if (level === 1) {
       return "low risk";
@@ -71,6 +69,8 @@ const AssessmentPage = ({ companies }) => {
       company.name.toLowerCase().includes(search.toLowerCase())
     )
     .filter((company) => matchesTags(company, activeTags));
+
+const resultCount = filteredCompanyData.length;
 
   return (
     <>

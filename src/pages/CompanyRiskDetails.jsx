@@ -4,13 +4,24 @@ import PageHeader from "../components/PageHeader";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { riskCategories } from "../data/riskCategories";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Component to display and assess risk details of a specific company
 const CompanyRiskDetails = ({ companies, setCompanies }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const company = companies.find((c) => c.id == id);
+
+  useEffect(() => {
+  fetch(`http://localhost:8000/api/articles/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log("Article data:", data);
+      // Optionally update state with fetched data if needed
+      // setArticleData(data);
+    })
+    .catch(err => console.error("Error fetching article:", err));
+}, [id]);
 
   // Helper to map riskLevel to dropdown value
   const getRiskDropdownValue = (riskLevel) => {
@@ -21,9 +32,9 @@ const CompanyRiskDetails = ({ companies, setCompanies }) => {
 
   // Helper to map dropdown value back to riskLevel number
   const getRiskNumber = (riskString) => {
-    let riskLevelNum = 3;
-    if (riskString === "low") riskLevelNum = 1;
-    else if (riskString === "medium") riskLevelNum = 2;
+    let riskLevelNum = 100;
+    if (riskString === "low") riskLevelNum = 25;
+    else if (riskString === "medium") riskLevelNum = 50;
     return riskLevelNum;
   };
 
@@ -38,6 +49,7 @@ const CompanyRiskDetails = ({ companies, setCompanies }) => {
     //changes in risk level and category should get saved in DB
 
     // Temporary save in companyData file
+    /*
     setCompanies((prevCompanies) =>
       prevCompanies.map((company) =>
         company.id === Number(id)
@@ -53,7 +65,43 @@ const CompanyRiskDetails = ({ companies, setCompanies }) => {
 
     console.log("Saved", riskLevel, riskCategory);
     //---------------------
+    */
+   console.log("Saved", getRiskNumber(riskLevel), riskCategory);
+   fetch(`http://localhost:8000/api/articles/${id}/review`, {
+  method: 'PUT',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    manual_decision: riskCategory,
+    manual_comment: 'Optional comment',
+    risk_level: getRiskNumber(riskLevel)
+  })
+})
   };
+
+  const handleDelete = () => {
+    //DELETE LOGIC HERE
+    //deletion should be done in DB 
+
+    const ok = window.confirm("Are you sure you want to permenently delete this article from the database?");
+    if (!ok) return;
+    
+    // Call API to delete article from database
+    fetch(`http://localhost:8000/api/articles/${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log("Delete response:", data);
+        alert("Article deleted successfully");
+        navigate("/"); // Navigate back to home after deletion
+      })
+      .catch(err => {
+        console.error("Error deleting article:", err);
+        alert("Failed to delete article");
+      });
+  };
+
 
   return (
     <div>
@@ -130,6 +178,9 @@ const CompanyRiskDetails = ({ companies, setCompanies }) => {
                 </option>
               ))}
             </select>
+            <div className="button delete-button" title="Delete article from database permanently" onClick={handleDelete}>
+              Delete
+            </div>
           </div>
         </div>
       </div>

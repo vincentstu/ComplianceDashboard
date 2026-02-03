@@ -15,15 +15,17 @@ const RiskPage = ({ companies }) => {
   const navigate = useNavigate();
   const [activeTags, setActiveTags] = useState([]);
 
-  const resultCount = companies.length;
+ 
 
   function riskLevel(level) {
     if (level === 1) {
       return "low risk";
     } else if (level === 2) {
       return "medium risk";
-    } else {
+    } else if (level === 3) {
       return "high risk";
+    } else {
+      return "no risk";
     }
   }
 
@@ -48,7 +50,8 @@ const RiskPage = ({ companies }) => {
       !(
         activeTags.includes("high risk") ||
         activeTags.includes("low risk") ||
-        activeTags.includes("medium risk")
+        activeTags.includes("medium risk") ||
+        activeTags.includes("no risk")
       );
     const matchesToday = !activeTags.includes("today") || isToday(company.date);
     console.log(matchesRisk);
@@ -61,6 +64,8 @@ const RiskPage = ({ companies }) => {
       company.name.toLowerCase().includes(search.toLowerCase())
     )
     .filter((company) => matchesTags(company, activeTags));
+
+     const resultCount = filteredCompanyData.length;
 
   return (
     <div className="content-body">

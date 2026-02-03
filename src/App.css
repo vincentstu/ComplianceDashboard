@@ -403,3 +403,18 @@ img {
   /* different color for assessed cards? */
   background-color: var(--light-grey);
 }
+
+.delete-button {
+  border: 3px solid;
+  border-radius: var(--border-radius);
+  border-color: #dc2626;
+  color: var(--white);
+  background-color: #dc2626;
+  padding: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  width: fit-content;
+  text-align: center;
+
+  justify-self: flex-end;
+}
