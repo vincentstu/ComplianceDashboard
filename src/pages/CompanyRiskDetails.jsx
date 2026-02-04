@@ -58,6 +58,8 @@ useEffect(() => {
 
   const handleAssess = () => {
     //assess button functionality
+    const ok = window.confirm("Are you sure you want to assess this article?");
+    if (!ok) return;
 
    fetch(`http://localhost:8000/api/articles/${id}/review`, {
     method: 'PUT',
@@ -67,7 +69,14 @@ useEffect(() => {
     manual_comment: 'Optional comment',
     risk_level: getRiskNumber(riskLevel)
   })
-})
+}).then(res => res.json())
+  .then(data => {
+    alert("Article assessed successfully");
+  })
+  .catch(err => {
+    console.error("Error assessing article:", err);
+    alert("Failed to assess article");
+  });
   };
 
   const handleDelete = () => {
@@ -148,7 +157,7 @@ useEffect(() => {
             style={{ flexDirection: "row", alignItems: "center", gap: "10px" }}
           >
             <div className="button assess-button" onClick={handleAssess}>
-              Assessed
+              Assess
             </div>
             <select
               className="button assess-dropdown"

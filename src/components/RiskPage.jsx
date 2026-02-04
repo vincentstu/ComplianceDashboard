@@ -54,9 +54,14 @@ const RiskPage = ({ companies }) => {
         activeTags.includes("no risk")
       );
     const matchesToday = !activeTags.includes("today") || isToday(company.date);
+    const companyCategories = company.riskCategory.split(",").map(cat => cat.trim().toLowerCase());
+    const matchesCategory = 
+      activeTags.some(tag => companyCategories.includes(tag.toLowerCase()));
+    
     console.log(matchesRisk);
     console.log(matchesToday);
-    return matchesRisk && matchesToday;
+    console.log(matchesCategory);
+    return matchesRisk && matchesToday && matchesCategory;
   }
 
   const filteredCompanyData = companies

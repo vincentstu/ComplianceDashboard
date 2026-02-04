@@ -141,9 +141,9 @@ const CompanyAssessmentDetails = ({ companyData }) => {
   </ResponsiveContainer>
           </div>
         </div>
-      </div>
+      
       {selectedRiskFilter && (
-        <div className="articles-section" style={{ padding: "20px", paddingLeft: "350px", paddingRight: "350px" }}>
+        <div className="articles-section" >
           <h2>{selectedRiskFilter === "all" ? "All Articles" : `${selectedRiskFilter.charAt(0).toUpperCase() + selectedRiskFilter.slice(1)} Risk Articles`}</h2>
           <div style={{ marginTop: "15px", display: "flex", flexDirection: "column", gap: "15px" }}>
             {getFilteredArticles().length > 0 ? (
@@ -160,6 +160,7 @@ const CompanyAssessmentDetails = ({ companyData }) => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

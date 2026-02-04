@@ -4,7 +4,7 @@ export const riskCategories = [
   "Fraud and Tax Evasion risk",
   "Antitrust and Competition risk",
   "Environmental pollution risk",
-  "Human Rights violation risk",
+  "Human Rights violations risk",
   "Security and Cyber risk",
   "Trade compliance and sanctions risk",
   "Regulatory risk",

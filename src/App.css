@@ -25,8 +25,10 @@ html {
   --med-risk: #d99300;
   --low-risk: #16a34a;
 
+  --green-button: #00b446;
+
   /* Spacing variables */
-  --page-padding: 350px;
+  --page-padding: 20vw;
   --page-bottom-padding: 50px;
 
   --border-radius: 5px;
@@ -264,11 +266,16 @@ img {
 .assess-button {
   border: 3px solid;
   border-radius: var(--border-radius);
-  border-color: #00b446;
-  color: #00b446;
+  border-color: var(--green-button);
+  color: var(--green-button);
   padding: 8px;
   padding-top: 6px;
   padding-bottom: 6px;
+}
+
+.assess-button:hover {
+  background-color: var(--green-button);
+  color: var(--white);
 }
 
 .assess-dropdown {
@@ -432,4 +439,12 @@ img {
   text-align: center;
 
   justify-self: flex-end;
+}
+
+.category-tags-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-top: 15px;
 }
