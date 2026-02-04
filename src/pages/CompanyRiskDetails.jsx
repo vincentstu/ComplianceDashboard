@@ -84,7 +84,7 @@ useEffect(() => {
       .then(res => res.json())
       .then(data => {
         alert("Article deleted successfully");
-        navigate("/"); // Navigate back to home after deletion
+        navigate(-1); // Navigate back to previous page after deletion
       })
       .catch(err => {
         console.error("Error deleting article:", err);
@@ -103,7 +103,7 @@ useEffect(() => {
       <div className="risk-details-body">
         <div
           className="button back"
-          onClick={() => navigate("/")}
+          onClick={() => navigate(-1)}
           style={{ display: "flex", alignItems: "center", gap: "5px" }}
         >
           <ArrowLeft size={20} />

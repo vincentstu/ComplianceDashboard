@@ -319,8 +319,18 @@ img {
 
 .assessment-details-content {
   display: flex;
+  flex-direction: row;
+}
+
+.assessment-details-stats {
+  display: flex;
   flex-direction: column;
   gap: 20px;
+  flex: 1;
+}
+
+.assessment-details-overview {
+  flex: 1;
 }
 
 .assessment-details-section {
@@ -331,7 +341,12 @@ img {
 
 .assessment-details-first-section {
   display: flex;
-  justify-content: space-between;
+  gap: 20px;
+}
+.assessment-details-last-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .sec-assessment-text {
