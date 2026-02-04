@@ -1,4 +1,3 @@
-import CompanyData from "../data/companyData";
 import { useParams } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import { useNavigate } from "react-router-dom";
@@ -7,28 +6,34 @@ import { riskCategories } from "../data/riskCategories";
 import { useState, useEffect } from "react";
 
 // Component to display and assess risk details of a specific company
-const CompanyRiskDetails = ({ companies, setCompanies }) => {
+const CompanyRiskDetails = () => {
   const navigate = useNavigate();
+
+  //get article id from url
   const { id } = useParams();
-  const company = companies.find((c) => c.id == id);
+
+  //Fetch company data from backend
+  const [companyFetch, setCompanyFetch] = useState(null);
 
   useEffect(() => {
-  fetch(`http://localhost:8000/api/articles/${id}`)
-    .then(res => res.json())
-    .then(data => {
-      console.log("Article data:", data);
-      // Optionally update state with fetched data if needed
-      // setArticleData(data);
-    })
-    .catch(err => console.error("Error fetching article:", err));
+  const fetchArticle = async () => {
+    try {
+      const res = await fetch(`http://localhost:8000/api/articles/${id}`);
+      const data = await res.json();
+      setCompanyFetch(data);
+    } catch (err) {
+      console.error("Error fetching article:", err);
+    }
+  };
+  fetchArticle();
 }, [id]);
 
-  // Helper to map riskLevel to dropdown value
-  const getRiskDropdownValue = (riskLevel) => {
-    if (riskLevel === 1) return "low";
-    if (riskLevel === 2) return "medium";
-    return "high";
-  };
+//Helper to map risk_score to risk level string
+const getRiskLevelFetch = (risk_level) => {
+  if (risk_level <= 25) return "low";
+  if (risk_level <= 50) return "medium";
+  return "high";
+};
 
   // Helper to map dropdown value back to riskLevel number
   const getRiskNumber = (riskString) => {
@@ -38,39 +43,26 @@ const CompanyRiskDetails = ({ companies, setCompanies }) => {
     return riskLevelNum;
   };
 
-  // State for risk level and category selections
-  const [riskLevel, setRiskLevel] = useState(
-    getRiskDropdownValue(company.riskLevel)
-  );
-  const [riskCategory, setRiskCategory] = useState(company.riskCategory);
+  //Declare state for risk level and category
+ const [riskLevel, setRiskLevel] = useState("");
+const [riskCategory, setRiskCategory] = useState("");
+
+useEffect(() => {
+  if (companyFetch) {
+    setRiskLevel(getRiskLevelFetch(companyFetch.risk_score));
+    setRiskCategory(companyFetch.risk_category || "");
+  }
+}, [companyFetch]);
+
+  
 
   const handleAssess = () => {
-    //ASSESS LOGIC HERE
-    //changes in risk level and category should get saved in DB
+    //assess button functionality
 
-    // Temporary save in companyData file
-    /*
-    setCompanies((prevCompanies) =>
-      prevCompanies.map((company) =>
-        company.id === Number(id)
-          ? {
-              ...company,
-              riskLevel: getRiskNumber(riskLevel),
-              riskCategory: riskCategory,
-              assessed: true,
-            }
-          : company
-      )
-    );
-
-    console.log("Saved", riskLevel, riskCategory);
-    //---------------------
-    */
-   console.log("Saved", getRiskNumber(riskLevel), riskCategory);
    fetch(`http://localhost:8000/api/articles/${id}/review`, {
-  method: 'PUT',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
     manual_decision: riskCategory,
     manual_comment: 'Optional comment',
     risk_level: getRiskNumber(riskLevel)
@@ -79,8 +71,7 @@ const CompanyRiskDetails = ({ companies, setCompanies }) => {
   };
 
   const handleDelete = () => {
-    //DELETE LOGIC HERE
-    //deletion should be done in DB 
+    //delete button functionality
 
     const ok = window.confirm("Are you sure you want to permenently delete this article from the database?");
     if (!ok) return;
@@ -92,7 +83,6 @@ const CompanyRiskDetails = ({ companies, setCompanies }) => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log("Delete response:", data);
         alert("Article deleted successfully");
         navigate("/"); // Navigate back to home after deletion
       })
@@ -102,6 +92,10 @@ const CompanyRiskDetails = ({ companies, setCompanies }) => {
       });
   };
 
+  // Render loading state if company data is not yet fetched
+  if(!companyFetch) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -116,29 +110,29 @@ const CompanyRiskDetails = ({ companies, setCompanies }) => {
           Back
         </div>
         <div className="risk-details-title">
-          <h1>{company.name}</h1>
-          <p>{company.date}</p>
+          <h1>{companyFetch.company_name}</h1>
+          <p>No Date yet</p>
         </div>
         <div className="risk-details-content">
           <div className="risk-details-first-section">
             <div className="risk-details-section">
               <p className="sec-risk-text muted-text">Risk Category:</p>
-              <p className="prim-risk-text">{company.riskCategory}</p>
+              <p className="prim-risk-text">{companyFetch.risk_category}</p>
             </div>
             <div className="risk-details-section" style={{ alignItems: "end" }}>
               <p className="sec-risk-text muted-text">
                 Time period of article:
               </p>
-              <p className="prim-risk-text">{company.date}</p>
+              <p className="prim-risk-text">No date yet</p>
             </div>
           </div>
           <div className="risk-details-section">
             <p className="sec-risk-text muted-text">Reasoning:</p>
-            <p className="prim-risk-text">{company.reasoning}</p>
+            <p className="prim-risk-text">{companyFetch.reasoning}</p>
           </div>
           <div className="risk-details-section">
             <p className="sec-risk-text muted-text">Summary:</p>
-            <p className="prim-risk-text">{company.summary}</p>
+            <p className="prim-risk-text">{companyFetch.summary}</p>
           </div>
           <div className="risk-details-section">
             <p className="sec-risk-text muted-text">Link to article:</p>
@@ -146,7 +140,7 @@ const CompanyRiskDetails = ({ companies, setCompanies }) => {
               href="https://www.tagesschau.de/ausland/amerika/usa-oeltanker-102.html"
               className="prim-risk-text"
             >
-              {company.link}
+              No link yet
             </a>
           </div>
           <div

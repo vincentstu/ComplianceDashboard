@@ -87,10 +87,7 @@ function App() {
         <Route
           path="/details/:id"
           element={
-            <CompanyRiskDetails
-              companies={companies}
-              setCompanies={setCompanies}
-            />
+            <CompanyRiskDetails/>
           }
         />
         <Route
