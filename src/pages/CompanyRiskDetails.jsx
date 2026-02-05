@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Flag, FlagTriangleRight } from "lucide-react";
 import { riskCategories } from "../data/riskCategories";
 import { useState, useEffect } from "react";
+import { formatDate } from "../utils/helpers";
 
 // Component to display and assess risk details of a specific company
 const CompanyRiskDetails = () => {
@@ -120,15 +121,15 @@ useEffect(() => {
           Back
         </div>
         <div className="risk-details-title">
-          <h1>{companyFetch.company_name}
+          <h1>{companyFetch.company_name || "Missing"}
             {companyFetch.verified && <span title="This article has already been assessed by a compliance officer." style={{cursor: "pointer"}}><FlagTriangleRight size={23}/></span>}</h1>
-          <p>No Date yet</p>
+          <p>{formatDate(companyFetch.published_at)}</p>
         </div>
         <div className="risk-details-content">
           <div className="risk-details-first-section">
             <div className="risk-details-section">
               <p className="sec-risk-text muted-text">Risk Category:</p>
-              <p className="prim-risk-text">{companyFetch.risk_category}</p>
+              <p className="prim-risk-text">{companyFetch.risk_category || "Missing"}</p>
             </div>
             <div className="risk-details-section" style={{ alignItems: "end" }}>
               <p className="sec-risk-text muted-text">
@@ -139,20 +140,20 @@ useEffect(() => {
           </div>
           <div className="risk-details-section">
             <p className="sec-risk-text muted-text">Reasoning:</p>
-            <p className="prim-risk-text">{companyFetch.reasoning}</p>
+            <p className="prim-risk-text">{companyFetch.reasoning || "Missing"}</p>
           </div>
           <div className="risk-details-section">
             <p className="sec-risk-text muted-text">Summary:</p>
-            <p className="prim-risk-text">{companyFetch.summary}</p>
+            <p className="prim-risk-text">{companyFetch.summary || "Missing"}</p>
           </div>
           <div className="risk-details-section">
             <p className="sec-risk-text muted-text">Link to article:</p>
             <a
-              href="https://www.tagesschau.de/ausland/amerika/usa-oeltanker-102.html"
+              href={companyFetch.url}
               className="prim-risk-text"
               target="_blank"
             >
-              No link yet
+              {companyFetch.url || "Missing"}
             </a>
           </div>
           <div

@@ -1,4 +1,5 @@
 import React from "react";
+import {formatDate} from "../utils/helpers";
 // Component to display risk information for a company
 const RiskCard = ({ companyData, onClick }) => {
   return (
@@ -34,7 +35,7 @@ const RiskCard = ({ companyData, onClick }) => {
             ? "High Risk"
             : "No Risk"}
         </p>
-        <p className="sec-risk-text muted-text">{companyData.date}</p>
+        <p className="sec-risk-text muted-text">{formatDate(companyData.date)}</p>
       </div>
     </div>
   );
