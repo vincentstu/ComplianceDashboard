@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar";
 import RiskCard from "./RiskCard";
 import AssessmentPage from "./AssessmentPage";
 import TagsSection from "./TagsSection";
+import { riskCategories } from "../data/riskCategories";
 
 import { useState, useEffect } from "react";
 
@@ -41,6 +42,10 @@ const RiskPage = ({ companies }) => {
     );
   }
 
+  function anyActiveCategory(activeTags) {
+    return riskCategories.some(category => activeTags.includes(category));
+  }
+
   // Check if a company matches the active tags
   function matchesTags(company, activeTags) {
     if (activeTags.length === 0) return true;
@@ -53,10 +58,15 @@ const RiskPage = ({ companies }) => {
         activeTags.includes("medium risk") ||
         activeTags.includes("no risk")
       );
+
+      console.log("company risk: " + riskLevel(company.riskLevel));
+      console.log("matches risk: " + matchesRisk);
+
     const matchesToday = !activeTags.includes("today") || isToday(company.date);
     const companyCategories = company.riskCategory.split(",").map(cat => cat.trim().toLowerCase());
     const matchesCategory = 
-      activeTags.some(tag => companyCategories.includes(tag.toLowerCase()));
+      activeTags.some(tag => companyCategories.includes(tag.toLowerCase())) ||
+      !anyActiveCategory(activeTags);
     
     console.log(matchesRisk);
     console.log(matchesToday);
@@ -65,6 +75,9 @@ const RiskPage = ({ companies }) => {
   }
 
   const filteredCompanyData = companies
+   // .filter((company) =>
+    //company.riskLevel !== 0
+  //)
     .filter((company) =>
       company.name.toLowerCase().includes(search.toLowerCase())
     )

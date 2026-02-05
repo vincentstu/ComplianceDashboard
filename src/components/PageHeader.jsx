@@ -12,7 +12,9 @@ const PageHeader = () => {
           <h2 className="dashboard-subtitle">Business Partner risk analysis</h2>
         </div>
       </div>
-      <img src={KionLogo} alt="Kion Group Logo" style={{ height: 50 }} />
+      <a href="https://www.kiongroup.com/en/" target="_blank" style={{alignSelf: "center", cursor: "pointer"}}>
+        <img src={KionLogo} alt="Kion Group Logo" style={{ height: 50}} />
+      </a>
     </header>
   );
 };

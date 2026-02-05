@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Flag, FlagTriangleRight } from "lucide-react";
 import { riskCategories } from "../data/riskCategories";
 import { useState, useEffect } from "react";
 
@@ -20,6 +20,7 @@ const CompanyRiskDetails = () => {
     try {
       const res = await fetch(`http://localhost:8000/api/articles/${id}`);
       const data = await res.json();
+      console.log(data);
       setCompanyFetch(data);
     } catch (err) {
       console.error("Error fetching article:", err);
@@ -119,7 +120,8 @@ useEffect(() => {
           Back
         </div>
         <div className="risk-details-title">
-          <h1>{companyFetch.company_name}</h1>
+          <h1>{companyFetch.company_name}
+            {companyFetch.verified && <span title="This article has already been assessed by a compliance officer." style={{cursor: "pointer"}}><FlagTriangleRight size={23}/></span>}</h1>
           <p>No Date yet</p>
         </div>
         <div className="risk-details-content">
@@ -148,6 +150,7 @@ useEffect(() => {
             <a
               href="https://www.tagesschau.de/ausland/amerika/usa-oeltanker-102.html"
               className="prim-risk-text"
+              target="_blank"
             >
               No link yet
             </a>

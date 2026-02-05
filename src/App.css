@@ -448,3 +448,7 @@ img {
   cursor: pointer;
   margin-top: 15px;
 }
+
+.articles-section {
+  padding-bottom: 20px;
+}
