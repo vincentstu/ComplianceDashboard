@@ -1,5 +1,5 @@
 import Tag from "./Tag";
-import {tags, categoryTags} from "../data/tags";
+import {tags} from "../data/tags";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { riskCategories } from "../data/riskCategories";

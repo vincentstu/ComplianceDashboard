@@ -5,6 +5,7 @@ import { ArrowLeft, Flag, FlagTriangleRight } from "lucide-react";
 import { riskCategories } from "../data/riskCategories";
 import { useState, useEffect } from "react";
 import { formatDate } from "../utils/helpers";
+import { ChevronDown } from "lucide-react";
 
 // Component to display and assess risk details of a specific company
 const CompanyRiskDetails = () => {
@@ -15,6 +16,7 @@ const CompanyRiskDetails = () => {
 
   //Fetch company data from backend
   const [companyFetch, setCompanyFetch] = useState(null);
+  const [expandComments, setExpandComments] = useState(false);
 
   useEffect(() => {
   const fetchArticle = async () => {
@@ -48,11 +50,13 @@ const getRiskLevelFetch = (risk_level) => {
   //Declare state for risk level and category
  const [riskLevel, setRiskLevel] = useState("");
 const [riskCategory, setRiskCategory] = useState("");
+const [comment, setComment] = useState("");
 
 useEffect(() => {
   if (companyFetch) {
     setRiskLevel(getRiskLevelFetch(companyFetch.risk_score));
     setRiskCategory(companyFetch.risk_category || "");
+    setComment(companyFetch.manual_comment || "");
   }
 }, [companyFetch]);
 
@@ -68,7 +72,7 @@ useEffect(() => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
     manual_decision: riskCategory,
-    manual_comment: 'Optional comment',
+    manual_comment: comment,
     risk_level: getRiskNumber(riskLevel)
   })
 }).then(res => res.json())
@@ -156,10 +160,31 @@ useEffect(() => {
               {companyFetch.url || "Missing"}
             </a>
           </div>
+          <div className="assess-section">
+      <div
+        className="prim-risk-text"
+        onClick={() => setExpandComments(!expandComments)}
+        style={{display: "flex", alignItems: "center", cursor: "pointer"}}
+      >
+        View Compliance Comments
+        <ChevronDown 
+          size={20} 
+          style={{ 
+            transform: expandComments ? "rotate(180deg)" : "rotate(0deg)",
+            transition: "transform 0.2s"
+          }} 
+        />
+      </div>
+      {expandComments && (
+        <div className="compliance-comments">
+          {companyFetch.manual_comment || "No comments from compliance officers yet."}
+        </div>
+      )}
           <div
             className="risk-details-section"
             style={{ flexDirection: "row", alignItems: "center", gap: "10px" }}
           >
+          
             <div className="button assess-button" onClick={handleAssess}>
               Assess
             </div>
@@ -188,6 +213,8 @@ useEffect(() => {
             <div className="button delete-button" title="Delete article from database permanently" onClick={handleDelete}>
               Delete
             </div>
+          </div>
+          <textarea className="comment-textarea" name="Comments" id="comments" placeholder="Write a comment here..." onChange={(e) => setComment(e.target.value)}></textarea>
           </div>
         </div>
       </div>

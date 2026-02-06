@@ -36,7 +36,7 @@ function transformArticlesToCompanies(articles) {
     name: article.company || "Unknown Company",
     riskCategory: article.risk_category || "Uncategorized",
     riskLevel: mapRiskScoreToLevel(article.risk_score ?? 0),
-    date: new Date().toLocaleDateString("de-DE"), // Uses current date; adjust if API provides a date field
+    date: article.published_at, // Uses current date; adjust if API provides a date field
     reasoning: article.reasoning || "No reasoning provided.",
     summary: article.text || "No summary available.",
     link: article.link || "",

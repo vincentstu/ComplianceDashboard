@@ -57,6 +57,13 @@ html {
   cursor: pointer;
 }
 
+.divider {
+  height: 1px;
+  background-color: var(--med-grey);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .page-header {
   background-color: var(--light-grey);
   display: flex;
@@ -451,4 +458,19 @@ img {
 
 .articles-section {
   padding-bottom: 20px;
+}
+
+.assess-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comment-textarea {
+  border: 1px solid var(--med-grey);
+  border-radius: var(--border-radius);
+  padding: 10px;
+  resize: none;
+  min-height: 80px;
+  width: 60%;
 }

@@ -3,9 +3,7 @@ const tags = [
   "medium risk",
   "low risk",
   "today",
+  "this week",
+  "this year",
 ];
-const categoryTags = [
-
-  "security and cyber risk",
-  ];
-export { tags, categoryTags };
+export { tags };
