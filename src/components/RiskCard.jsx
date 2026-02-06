@@ -1,5 +1,6 @@
 import React from "react";
 import {formatDate} from "../utils/helpers";
+
 // Component to display risk information for a company
 const RiskCard = ({ companyData, onClick }) => {
   return (

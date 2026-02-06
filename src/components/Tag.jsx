@@ -1,3 +1,4 @@
+// Tag component for Article filtering
 const Tag = ({ tag, classes, onClick }) => {
   return (
     <div className={`tag ${classes}`} onClick={onClick}>

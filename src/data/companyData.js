@@ -1,3 +1,5 @@
+// Mock data set for companies and their associated risk information
+//Not used currently
 const companies = [
   {
     id: 1,

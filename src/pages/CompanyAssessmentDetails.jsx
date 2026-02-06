@@ -2,9 +2,8 @@ import { useParams } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Info } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import RiskCard from "../components/RiskCard";
-
 import {
   BarChart,
   Bar,
@@ -130,15 +129,15 @@ const CompanyAssessmentDetails = ({ companyData }) => {
           </div>
           <div className="assessment-details-overview">
             Article Risk Spread:
- <ResponsiveContainer width="100%" height={300}>
-    <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 20 }}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
-      <Bar dataKey="number_of_articles" fill="#8884d8" />
-    </BarChart>
-  </ResponsiveContainer>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 20 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="number_of_articles" fill="#8884d8" />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
       

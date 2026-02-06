@@ -4,6 +4,7 @@ import TabBar from "./TabBar";
 import SearchBar from "./SearchBar";
 import AssesmentCard from "./AssessmentCard";
 import TagsSection from "./TagsSection";
+import { riskNumToString } from "../utils/helpers";
 
 import { useState } from "react";
 
@@ -46,21 +47,11 @@ const AssessmentPage = ({ companies }) => {
     ).values()
   );
 
-  function riskLevel(level) {
-    if (level === 1) {
-      return "low risk";
-    } else if (level === 2) {
-      return "medium risk";
-    } else {
-      return "high risk";
-    }
-  }
-
   function matchesTags(company, activeTags) {
     if (activeTags.length === 0) return true;
 
     /* Risk level */
-    return activeTags.includes(riskLevel(company.riskLevel));
+    return activeTags.includes(riskNumToString(company.riskLevel).toLowerCase());
   }
 
 // Filter companies based on search and active tags
@@ -70,7 +61,8 @@ const AssessmentPage = ({ companies }) => {
     )
     .filter((company) => matchesTags(company, activeTags));
 
-const resultCount = filteredCompanyData.length;
+    // get number of results after filtering
+    const resultCount = filteredCompanyData.length;
 
   return (
     <>

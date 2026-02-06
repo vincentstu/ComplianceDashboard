@@ -1,23 +1,12 @@
 import { useState } from "react";
 import "./App.css";
-import PageHeader from "./components/PageHeader";
-import RiskPage from "./components/RiskPage";
 
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import CompanyRiskDetails from "./pages/CompanyRiskDetails";
 import CompanyAssessmentDetails from "./pages/CompanyAssessmentDetails";
-import mockData from "./data/companyData";
 import { useEffect } from "react";
-
-// Helper function to map risk score to risk level
-function mapRiskScoreToLevel(score) {
-  if (score === 0) return 0;
-  if (score === 25) return 1;
-  if (score === 50) return 2;
-  if (score === 100) return 3;
-  return 0; // Default fallback
-}
+import { mapRiskScoreToLevel } from "./utils/helpers";
 
 // Transform API article format to dashboard company format and remove duplicates
 function transformArticlesToCompanies(articles) {
@@ -47,14 +36,8 @@ function transformArticlesToCompanies(articles) {
 // The main application component that sets up routing and state management
 function App() {
 
-  // Article data set
+  // Article data set state
   const [companies, setCompanies] = useState([]);
-
-  /*temporary mock data, to be replaced with proper database stuff
-  useEffect(() => {
-    setCompanies(mockData);
-  }, []);
-  */
 
   // get article data from database and save it in state  
   useEffect(() => {
@@ -70,16 +53,6 @@ function App() {
       .catch((err) => console.error("Error fetching articles:", err));
   }, []);
   
-  //one time test fetch
-  
- fetch("http://localhost:8000/api/articles")
-  .then(res => res.json())
-  .then(data => {
-    console.log(data);
-  })
-  .catch(err => console.error(err));
-  
-
   return (
     <div>
       <Routes>

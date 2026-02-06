@@ -6,8 +6,10 @@ import { riskCategories } from "../data/riskCategories";
 
 // Component to display and manage a section of tags
 const TagsSection = ({ activeTags, setActiveTags }) => {
+  // State to manage the expansion of category tags
   const [expandCategories, setExpandCategories] = useState(false);
 
+  // Function to toggle the active state of a tag
   function toggleTag(tag) {
     setActiveTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
@@ -26,6 +28,7 @@ const TagsSection = ({ activeTags, setActiveTags }) => {
       ))}
       <div
         className="category-tags-header"
+        // Expand category tag dropdown
         onClick={() => setExpandCategories(!expandCategories)}
       >
         <p className="prim-risk-text bold-text">Category Tags</p>

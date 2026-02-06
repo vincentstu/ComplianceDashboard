@@ -1,4 +1,5 @@
 import React from "react";
+import { riskNumToString } from "../utils/helpers";
 // Component to display aggregated assessment information for a company
 const AssesmentCard = ({ companyData, allCompanies, onClick }) => {
   // Get all entries for this company and sum their weighted risk levels
@@ -33,11 +34,7 @@ const AssesmentCard = ({ companyData, allCompanies, onClick }) => {
               : "high-risk"
           }`}
         >
-          {aggregatedRiskLevel === 1
-            ? "Low Risk"
-            : aggregatedRiskLevel === 2
-            ? "Medium Risk"
-            : "High Risk"}
+          {riskNumToString(aggregatedRiskLevel)}
         </p>
       </div>
     </div>

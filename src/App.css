@@ -7,6 +7,7 @@
   box-sizing: border-box;
 }
 
+/* global styles */
 html {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -26,6 +27,7 @@ html {
   --low-risk: #16a34a;
 
   --green-button: #00b446;
+  --red-button: #dc2626;
 
   /* Spacing variables */
   --page-padding: 20vw;
@@ -436,9 +438,9 @@ img {
 .delete-button {
   border: 3px solid;
   border-radius: var(--border-radius);
-  border-color: #dc2626;
+  border-color: var(--red-button);
   color: var(--white);
-  background-color: #dc2626;
+  background-color: var(--red-button);
   padding: 8px;
   padding-top: 6px;
   padding-bottom: 6px;
@@ -473,4 +475,11 @@ img {
   resize: none;
   min-height: 80px;
   width: 60%;
+}
+
+.risk-category-dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
 }

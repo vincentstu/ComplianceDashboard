@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Flag, FlagTriangleRight } from "lucide-react";
+import { ArrowLeft, FlagTriangleRight } from "lucide-react";
 import { riskCategories } from "../data/riskCategories";
 import { useState, useEffect } from "react";
 import { formatDate } from "../utils/helpers";
@@ -16,14 +16,16 @@ const CompanyRiskDetails = () => {
 
   //Fetch company data from backend
   const [companyFetch, setCompanyFetch] = useState(null);
+
+  // State to manage compliance comments section expansion
   const [expandComments, setExpandComments] = useState(false);
 
+  // Fetch article data when component mounts or id changes
   useEffect(() => {
   const fetchArticle = async () => {
     try {
       const res = await fetch(`http://localhost:8000/api/articles/${id}`);
       const data = await res.json();
-      console.log(data);
       setCompanyFetch(data);
     } catch (err) {
       console.error("Error fetching article:", err);
@@ -40,33 +42,34 @@ const getRiskLevelFetch = (risk_level) => {
 };
 
   // Helper to map dropdown value back to riskLevel number
-  const getRiskNumber = (riskString) => {
-    let riskLevelNum = 100;
-    if (riskString === "low") riskLevelNum = 25;
-    else if (riskString === "medium") riskLevelNum = 50;
-    return riskLevelNum;
+  const getRiskNumber = (riskString) => { 
+    if (riskString === "low") return 25;
+    else if (riskString === "medium") return 50;
+    return 100;
   };
 
-  //Declare state for risk level and category
- const [riskLevel, setRiskLevel] = useState("");
-const [riskCategory, setRiskCategory] = useState("");
-const [comment, setComment] = useState("");
+  //Declare state for risk level, risk category and comment
+  const [riskLevel, setRiskLevel] = useState("");
+  const [riskCategory, setRiskCategory] = useState("");
+  const [comment, setComment] = useState("");
 
-useEffect(() => {
-  if (companyFetch) {
-    setRiskLevel(getRiskLevelFetch(companyFetch.risk_score));
-    setRiskCategory(companyFetch.risk_category || "");
-    setComment(companyFetch.manual_comment || "");
-  }
-}, [companyFetch]);
+  // Update risk level, category and comment state when companyFetch data is loaded
+  useEffect(() => {
+    if (companyFetch) {
+      setRiskLevel(getRiskLevelFetch(companyFetch.risk_score || 0));
+      setRiskCategory(companyFetch.risk_category || "");
+      setComment(companyFetch.manual_comment || "");
+    }
+  }, [companyFetch]);
 
   
-
+  // Handle assess button click to send assessment data to backend
   const handleAssess = () => {
-    //assess button functionality
+    // Confirmation dialog before assessing the article
     const ok = window.confirm("Are you sure you want to assess this article?");
     if (!ok) return;
 
+    // Call API to update article assessment in database
    fetch(`http://localhost:8000/api/articles/${id}/review`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -85,9 +88,9 @@ useEffect(() => {
   });
   };
 
+  // Handle delete button click to delete article from database
   const handleDelete = () => {
-    //delete button functionality
-
+    // Confirmation dialog before deleting the article
     const ok = window.confirm("Are you sure you want to permenently delete this article from the database?");
     if (!ok) return;
     
@@ -180,11 +183,12 @@ useEffect(() => {
           {companyFetch.manual_comment || "No comments from compliance officers yet."}
         </div>
       )}
+          <textarea className="comment-textarea" name="Comments" id="comments" placeholder="Write a comment here..." onChange={(e) => setComment(e.target.value)}></textarea>
           <div
             className="risk-details-section"
-            style={{ flexDirection: "row", alignItems: "center", gap: "10px" }}
+            style={{ flexDirection: "row", alignItems: "flex-start", gap: "10px" }}
           >
-          
+
             <div className="button assess-button" onClick={handleAssess}>
               Assess
             </div>
@@ -198,23 +202,42 @@ useEffect(() => {
               <option value="medium">Medium Risk</option>
               <option value="high">High Risk</option>
             </select>
-            <select
-              className="button assess-dropdown"
-              name="riskCategory"
-              value={riskCategory}
-              onChange={(e) => setRiskCategory(e.target.value)}
-            >
-              {riskCategories.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
+            <div className="risk-category-dropdown">
+              
+              {// Split riskCategory string into array and render a dropdown for each category
+              riskCategory.split(",").map(item => item.trim())
+              .map((category, index) => (
+                <select
+                className="button assess-dropdown"
+                name="riskCategory"
+                value={category}
+                onChange={(e) => {
+                  const newValue = e.target.value;
+
+                  setRiskCategory((prev) => {
+                    // Split the existing riskCategory string into an array, update the changed category, and join it back into a string
+                    const parts = prev
+                      ? prev.split(",").map(p => p.trim())
+                      : [];
+
+                    parts[index] = newValue;
+
+                    return parts.join(", ");
+                  });
+                }}
+              >
+                {riskCategories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
               ))}
-            </select>
+            </div>
             <div className="button delete-button" title="Delete article from database permanently" onClick={handleDelete}>
               Delete
             </div>
           </div>
-          <textarea className="comment-textarea" name="Comments" id="comments" placeholder="Write a comment here..." onChange={(e) => setComment(e.target.value)}></textarea>
           </div>
         </div>
       </div>

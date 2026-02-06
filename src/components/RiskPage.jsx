@@ -7,69 +7,21 @@ import AssessmentPage from "./AssessmentPage";
 import TagsSection from "./TagsSection";
 import { riskCategories } from "../data/riskCategories";
 import { formatDate } from "../utils/helpers";
+import { riskNumToString, isToday, isThisWeek, isThisYear } from "../utils/helpers";
 
 import { useState, useEffect } from "react";
 
 // Component to display and filter risk information for companies
 const RiskPage = ({ companies }) => {
+  // Search input state
   const [search, setSearch] = useState("");
+  // Active tab state: "risk" or "company"
   const [activeTab, setActiveTab] = useState("risk");
   const navigate = useNavigate();
+  // Active tags state for filtering
   const [activeTags, setActiveTags] = useState([]);
 
- 
-
-  function riskLevel(level) {
-    if (level === 1) {
-      return "low risk";
-    } else if (level === 2) {
-      return "medium risk";
-    } else if (level === 3) {
-      return "high risk";
-    } else {
-      return "no risk";
-    }
-  }
-
-// Check if the date corresponds to today
-  function isToday(date) {
-    // Accepts date string in format 'DD.MM.YYYY'
-    const [day, month, year] = date.split(".");
-    const today = new Date();
-    return (
-      today.getDate() === Number(day) &&
-      today.getMonth() + 1 === Number(month) &&
-      today.getFullYear() === Number(year)
-    );
-  }
-
-  function isThisWeek(date) {
-  // Accepts date string in format 'DD.MM.YYYY'
-  const [day, month, year] = date.split(".");
-  const inputDate = new Date(Number(year), Number(month) - 1, Number(day));
-  const today = new Date();
-
-  // Get Monday of current week
-  const firstDayOfWeek = new Date(today);
-  firstDayOfWeek.setDate(today.getDate() - today.getDay() + 1); // Monday
-
-  // Get Sunday of current week
-  const lastDayOfWeek = new Date(firstDayOfWeek);
-  lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6); // Sunday
-
-  // Check if inputDate is between Monday and Sunday (inclusive)
-  return inputDate >= firstDayOfWeek && inputDate <= lastDayOfWeek;
-}
-
-function isThisYear(date) {
-  // Accepts date string in format 'DD.MM.YYYY'
-  const [day, month, year] = date.split(".");
-  const today = new Date();
-  return today.getFullYear() === Number(year);
-}
-
- 
-
+  //Check if any active tag is a risk category
   function anyActiveCategory(activeTags) {
     return riskCategories.some(category => activeTags.includes(category));
   }
@@ -79,7 +31,7 @@ function isThisYear(date) {
     if (activeTags.length === 0) return true;
 
     const matchesRisk =
-      activeTags.includes(riskLevel(company.riskLevel)) ||
+      activeTags.includes(riskNumToString(company.riskLevel).toLowerCase()) ||
       !(
         activeTags.includes("high risk") ||
         activeTags.includes("low risk") ||
@@ -87,30 +39,20 @@ function isThisYear(date) {
         activeTags.includes("no risk")
       );
 
-      console.log("company risk: " + riskLevel(company.riskLevel));
-      console.log("matches risk: " + matchesRisk);
-
     const matchesToday = !activeTags.includes("today") || isToday(formatDate(company.date));
     const matchesThisWeek = !activeTags.includes("this week") || isThisWeek(formatDate(company.date));
     const matchesThisYear = !activeTags.includes("this year") || isThisYear(formatDate(company.date));
+
     const companyCategories = company.riskCategory.split(",").map(cat => cat.trim().toLowerCase());
     const matchesCategory = 
       activeTags.some(tag => companyCategories.includes(tag.toLowerCase())) ||
       !anyActiveCategory(activeTags);
     
-    console.log(matchesRisk);
-    console.log(matchesToday);
-    console.log(matchesThisWeek);
-    console.log(matchesCategory);
-    console.log(matchesThisYear);
-    
     return matchesRisk && matchesToday && matchesCategory && matchesThisWeek && matchesThisYear; 
   }
 
+  // Filter companies based on search input and active tags
   const filteredCompanyData = companies
-   // .filter((company) =>
-    //company.riskLevel !== 0
-  //)
     .filter((company) =>
       company.name.toLowerCase().includes(search.toLowerCase())
     )
@@ -142,6 +84,7 @@ function isThisYear(date) {
                   <RiskCard
                     key={companyData.id}
                     companyData={companyData}
+                    // Navigate to details page on card click
                     onClick={() => navigate(`/details/${companyData.id}`)}
                   />
                 ))

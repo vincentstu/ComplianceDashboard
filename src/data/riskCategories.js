@@ -1,3 +1,4 @@
+// List of all possible risk categories
 export const riskCategories = [
   "No Risk",
   "Money Laundering risk",

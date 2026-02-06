@@ -4,7 +4,6 @@ import RiskPage from "../components/RiskPage";
 
 // Home page component that displays the header and risk page
 function Home({ companies }) {
-  const navigate = useNavigate();
 
   return (
     <div>

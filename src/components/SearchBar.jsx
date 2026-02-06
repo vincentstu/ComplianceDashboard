@@ -1,5 +1,5 @@
 import React from "react";
-import { Search, SlidersHorizontal } from "lucide-react";
+import { Search } from "lucide-react";
 
 // SearchBar Component
 const SearchBar = ({ value, onChange }) => {
