@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import TabBar from "./TabBar";
 import SearchBar from "./SearchBar";
 import AssesmentCard from "./AssessmentCard";
-import TagsSection from "./TagsSection";
+import CompanyTagsSection from "./CompanyTagsSection";
 import { riskNumToString } from "../utils/helpers";
 
 import { useState } from "react";
@@ -90,7 +90,7 @@ const AssessmentPage = ({ companies }) => {
               onClick={() => navigate(`/assessment-details/${companyData.id}`)}
             />
           ))}
-        <TagsSection activeTags={activeTags} setActiveTags={setActiveTags} />
+        <CompanyTagsSection activeTags={activeTags} setActiveTags={setActiveTags} />
       </div>
     </>
   );

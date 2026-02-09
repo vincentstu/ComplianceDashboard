@@ -430,6 +430,12 @@ img {
   width: 200px;
 }
 
+.tags-section-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .risk-card-assessed {
   /* different color for assessed cards? */
   background-color: var(--light-grey);

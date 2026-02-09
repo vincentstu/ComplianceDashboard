@@ -1,10 +1,17 @@
 //List of all tags, excluding risk categories
-const tags = [
+export const tags = [
   "high risk",
   "medium risk",
   "low risk",
   "today",
   "this week",
   "this year",
+  "pending", 
+  "assessed",
 ];
-export { tags };
+
+export const companyTags = [
+  "high risk",
+  "medium risk",
+  "low risk",
+];

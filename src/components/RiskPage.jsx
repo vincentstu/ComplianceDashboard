@@ -30,6 +30,14 @@ const RiskPage = ({ companies }) => {
   function matchesTags(company, activeTags) {
     if (activeTags.length === 0) return true;
 
+    let matchesStatus = true;
+
+    if (activeTags.includes("assessed") && !activeTags.includes("pending")) {
+      matchesStatus = company.verified === true;
+    } else if (!activeTags.includes("assessed") && activeTags.includes("pending")) {
+      matchesStatus = company.verified === false;
+    }
+
     const matchesRisk =
       activeTags.includes(riskNumToString(company.riskLevel).toLowerCase()) ||
       !(
@@ -48,7 +56,7 @@ const RiskPage = ({ companies }) => {
       activeTags.some(tag => companyCategories.includes(tag.toLowerCase())) ||
       !anyActiveCategory(activeTags);
     
-    return matchesRisk && matchesToday && matchesCategory && matchesThisWeek && matchesThisYear; 
+    return matchesRisk && matchesToday && matchesCategory && matchesThisWeek && matchesThisYear && matchesStatus; 
   }
 
   // Filter companies based on search input and active tags

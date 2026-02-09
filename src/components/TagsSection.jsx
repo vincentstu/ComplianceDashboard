@@ -19,6 +19,7 @@ const TagsSection = ({ activeTags, setActiveTags }) => {
   return (
     <div className="tag-section">
       <p className="prim-risk-text bold-text">Tags</p>
+      <div className="tags-section-tags">
       {tags.map((tag) => (
         <Tag
           tag={tag}
@@ -26,6 +27,8 @@ const TagsSection = ({ activeTags, setActiveTags }) => {
           onClick={() => toggleTag(tag)}
         />
       ))}
+      </div>
+
       <div
         className="category-tags-header"
         // Expand category tag dropdown
