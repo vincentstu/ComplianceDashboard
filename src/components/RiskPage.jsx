@@ -8,6 +8,7 @@ import TagsSection from "./TagsSection";
 import { riskCategories } from "../data/riskCategories";
 import { formatDate } from "../utils/helpers";
 import { riskNumToString, isToday, isThisWeek, isThisYear } from "../utils/helpers";
+import FetchNewsSection from "./FetchNewsSection";
 
 import { useState, useEffect } from "react";
 
@@ -101,6 +102,7 @@ const RiskPage = ({ companies }) => {
               activeTags={activeTags}
               setActiveTags={setActiveTags}
             />
+            <FetchNewsSection/>
           </div>
         </>
       )}

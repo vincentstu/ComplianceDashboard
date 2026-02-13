@@ -163,6 +163,15 @@ img {
   outline: none;
 }
 
+.fetch-company-input{
+  border: 1px solid var(--med-grey);
+  border-radius: var(--border-radius);
+  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  outline: none;
+}
+
 .search-wrapper {
   border: 1px solid var(--med-grey);
   border-radius: var(--border-radius);
@@ -285,6 +294,15 @@ img {
 .assess-button:hover {
   background-color: var(--green-button);
   color: var(--white);
+}
+
+.fetch-run-button{
+  border: 3px solid;
+  border-radius: var(--border-radius);
+  padding: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+
 }
 
 .assess-dropdown {
@@ -411,9 +429,17 @@ img {
   color: var(--white);
 }
 
-.tag-section {
+.tag-offset{
   position: absolute;
   transform: translateX(-270px);
+}
+
+.fetch-offset{
+  position: absolute;
+  transform: translateX(1100px);
+}
+
+.tag-section {
 
   border: 1px solid;
   border-color: var(--med-grey);

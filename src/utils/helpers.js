@@ -1,6 +1,6 @@
 // Convert ISO date string to "DD.MM.YYYY" format
 export function formatDate(isoString) {
-    if (!isoString) return "Unknown date";
+    if (!isoString) return "Date Missing";
 
   const date = new Date(isoString);
 

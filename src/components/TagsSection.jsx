@@ -17,7 +17,7 @@ const TagsSection = ({ activeTags, setActiveTags }) => {
   }
 
   return (
-    <div className="tag-section">
+    <div className="tag-section tag-offset">
       <p className="prim-risk-text bold-text">Tags</p>
       <div className="tags-section-tags">
       {tags.map((tag) => (
