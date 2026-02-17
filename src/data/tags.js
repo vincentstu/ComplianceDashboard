@@ -8,6 +8,7 @@ export const tags = [
   "this year",
   "pending", 
   "assessed",
+  "hide no risk"
 ];
 
 export const companyTags = [

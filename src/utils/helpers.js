@@ -51,6 +51,8 @@ export function isThisYear(date) {
 // Convert risk level number to string representation
 export function riskNumToString(riskNum) {
     switch (riskNum) {
+        case 0:
+          return "No Risk";
         case 1:
             return "Low Risk";
         case 2:
@@ -69,4 +71,27 @@ export function mapRiskScoreToLevel(score) {
   if (score === 50) return 2;
   if (score === 100) return 3;
   return 0; // Default fallback
+}
+
+export function calculateAssessmentLevel(companyName, companies) {
+  const companyEntries = companies.filter((c) => c.name === companyName);
+  const relevantEntries = companyEntries.filter((c) => c.riskLevel > 0);
+
+  const weights = { 1: 1, 2: 4, 3: 16 };
+  const totalWeightedSum = relevantEntries.reduce((sum, c) => {
+    return sum + (weights[c.riskLevel] || 0);
+  }, 0);
+  const maxPossibleWeight = 16 * relevantEntries.length; // Maximum weight if all entries are High Risk
+  const assessmentLevelPercentage = maxPossibleWeight > 0 ? (totalWeightedSum / maxPossibleWeight) * 100 : 0;
+  const aggregatedRiskLevel =
+    assessmentLevelPercentage == 0
+        ? 0
+        :
+      assessmentLevelPercentage < 34
+        ? 1
+        : assessmentLevelPercentage < 67
+        ? 2
+        : 3;
+
+  return {assessmentLevelPercentage, aggregatedRiskLevel};
 }

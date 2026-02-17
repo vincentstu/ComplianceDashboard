@@ -8,13 +8,13 @@ const TabBar = ({ activeTab, onTabChange }) => {
         className={`riskfeed-tab ${activeTab === "risk" ? "active-tab" : ""}`}
         onClick={() => onTabChange("risk")}
       >
-        Risk Feed
+        Assessment by Article
       </div>
       <div
         className={`company-tab ${activeTab === "company" ? "active-tab" : ""}`}
         onClick={() => onTabChange("company")}
       >
-        Company Assessment
+        Assessment by Company
       </div>
     </div>
   );

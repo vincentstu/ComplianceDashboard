@@ -52,12 +52,14 @@ const RiskPage = ({ companies }) => {
     const matchesThisWeek = !activeTags.includes("this week") || isThisWeek(formatDate(company.date));
     const matchesThisYear = !activeTags.includes("this year") || isThisYear(formatDate(company.date));
 
+    const matchesNoRisk = !activeTags.includes("hide no risk") || company.riskLevel !== 0;
+
     const companyCategories = company.riskCategory.split(",").map(cat => cat.trim().toLowerCase());
     const matchesCategory = 
       activeTags.some(tag => companyCategories.includes(tag.toLowerCase())) ||
       !anyActiveCategory(activeTags);
     
-    return matchesRisk && matchesToday && matchesCategory && matchesThisWeek && matchesThisYear && matchesStatus; 
+    return matchesRisk && matchesNoRisk && matchesToday && matchesCategory && matchesThisWeek && matchesThisYear && matchesStatus; 
   }
 
   // Filter companies based on search input and active tags

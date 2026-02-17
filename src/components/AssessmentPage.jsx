@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar";
 import AssesmentCard from "./AssessmentCard";
 import CompanyTagsSection from "./CompanyTagsSection";
 import { riskNumToString } from "../utils/helpers";
+import { calculateAssessmentLevel } from "../utils/helpers";
 
 import { useState } from "react";
 
@@ -13,28 +14,6 @@ const AssessmentPage = ({ companies }) => {
   const [activeTab, setActiveTab] = useState("company");
   const navigate = useNavigate();
   const [activeTags, setActiveTags] = useState([]);
-
-  //calculate aggregated risk level for company
-  function calculateAssessmentLevel(companyName) {
-    const companyEntries = companies.filter((c) => c.name === companyName);
-    const weights = { 1: 1, 2: 2, 3: 4 };
-    const sum = companyEntries.reduce(
-      (acc, c) => acc + weights[c.riskLevel] || 0,
-      0
-    );
-    
-    // calculate assessment level percentage
-    const maxPossibleWeight = weights[3] * companyEntries.length; // Maximum weight if all entries are High Risk
-    const assessmentLevelPercentage = (sum / maxPossibleWeight) * 100;
-    const aggregatedRiskLevel =
-      assessmentLevelPercentage < 34
-        ? 1
-        : assessmentLevelPercentage < 67
-        ? 2
-        : 3;
-
-    return { assessmentLevelPercentage, aggregatedRiskLevel };
-  }
 
   // Remove duplicate companies by name, keeping the one with highest risk level
   const uniqueCompanies = Array.from(
@@ -78,8 +57,8 @@ const AssessmentPage = ({ companies }) => {
         {filteredCompanyData
           .slice()
           .sort((a, b) => {
-            const rA = calculateAssessmentLevel(a.name).aggregatedRiskLevel;
-            const rB = calculateAssessmentLevel(b.name).aggregatedRiskLevel;
+            const rA = calculateAssessmentLevel(a.name, companies).aggregatedRiskLevel;
+            const rB = calculateAssessmentLevel(b.name, companies).aggregatedRiskLevel;
             return rB - rA;
           })
           .map((companyData) => (

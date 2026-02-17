@@ -36,6 +36,7 @@ const CompanyRiskDetails = () => {
 
 //Helper to map risk_score to risk level string
 const getRiskLevelFetch = (risk_level) => {
+  if (risk_level === 0) return "no";
   if (risk_level <= 25) return "low";
   if (risk_level <= 50) return "medium";
   return "high";
@@ -43,8 +44,10 @@ const getRiskLevelFetch = (risk_level) => {
 
   // Helper to map dropdown value back to riskLevel number
   const getRiskNumber = (riskString) => { 
+    console.log(riskString);
     if (riskString === "low") return 25;
     else if (riskString === "medium") return 50;
+    else if (riskString === "no") return 0;
     return 100;
   };
 
@@ -138,12 +141,7 @@ const getRiskLevelFetch = (risk_level) => {
               <p className="sec-risk-text muted-text">Risk Category:</p>
               <p className="prim-risk-text">{companyFetch.risk_category || "Missing"}</p>
             </div>
-            <div className="risk-details-section" style={{ alignItems: "end" }}>
-              <p className="sec-risk-text muted-text">
-                Time period of article:
-              </p>
-              <p className="prim-risk-text">No date yet</p>
-            </div>
+            
           </div>
           <div className="risk-details-section">
             <p className="sec-risk-text muted-text">Reasoning:</p>
@@ -198,6 +196,7 @@ const getRiskLevelFetch = (risk_level) => {
               value={riskLevel}
               onChange={(e) => setRiskLevel(e.target.value)}
             >
+              <option value="no">No Risk</option>
               <option value="low">Low Risk</option>
               <option value="medium">Medium Risk</option>
               <option value="high">High Risk</option>
@@ -235,7 +234,7 @@ const getRiskLevelFetch = (risk_level) => {
               ))}
             </div>
             <div className="button delete-button" title="Delete article from database permanently" onClick={handleDelete}>
-              Delete
+              Delete Article
             </div>
           </div>
           </div>

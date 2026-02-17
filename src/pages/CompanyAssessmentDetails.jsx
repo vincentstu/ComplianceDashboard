@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Info } from "lucide-react";
 import { useState } from "react";
 import RiskCard from "../components/RiskCard";
+import { calculateAssessmentLevel } from "../utils/helpers";
 import {
   BarChart,
   Bar,
@@ -22,23 +23,16 @@ const CompanyAssessmentDetails = ({ companyData }) => {
   const company = companyData.find((c) => c.id == id);
   const [selectedRiskFilter, setSelectedRiskFilter] = useState("all");
 
+  
   // Get all entries for this company and sum their risk levels
   const companyEntries = companyData.filter((c) => c.name === company?.name);
-  console.log(companyEntries);
+
   const categoryCounts = companyEntries.reduce((acc, entry) => {
     acc[entry.riskCategory] = (acc[entry.riskCategory] || 0) + 1;
     return acc;
   }, {});
-  
 
-  // Calculate weighted risk score
-  const weights = { 1: 1, 2: 2, 3: 4 };
-  const totalWeightedSum = companyEntries.reduce((sum, c) => {
-    return sum + (weights[c.riskLevel] || 0);
-  }, 0);
-  const maxPossibleWeight = 4 * companyEntries.length; // Maximum weight if all entries are High Risk
-  const assessmentLevelPercentage =
-    (totalWeightedSum / maxPossibleWeight) * 100;
+  const { assessmentLevelPercentage, aggregatedRiskLevel } = calculateAssessmentLevel(company?.name, companyData);
 
   const totalArticleCount = companyEntries.length;
 
@@ -133,7 +127,11 @@ const CompanyAssessmentDetails = ({ companyData }) => {
               <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 20 }}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
-                <YAxis />
+                <YAxis
+                  domain={[0, 'dataMax']}
+                  allowDecimals={false}
+                />
+
                 <Tooltip />
                 <Bar dataKey="number_of_articles" fill="#8884d8" />
               </BarChart>

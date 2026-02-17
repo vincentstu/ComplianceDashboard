@@ -6,7 +6,6 @@ import { useState } from "react";
 // Component to display and manage a section of tags
 const CompanyTagsSection = ({ activeTags, setActiveTags }) => {
   // State to manage the expansion of category tags
-  const [expandCategories, setExpandCategories] = useState(false);
 
   // Function to toggle the active state of a tag
   function toggleTag(tag) {
@@ -16,7 +15,7 @@ const CompanyTagsSection = ({ activeTags, setActiveTags }) => {
   }
 
   return (
-    <div className="tag-section">
+    <div className="tag-section tag-offset">
       <p className="prim-risk-text bold-text">Tags</p>
       <div className="tags-section-tags">
       {companyTags.map((tag) => (

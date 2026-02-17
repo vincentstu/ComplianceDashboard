@@ -1,19 +1,11 @@
 import React from "react";
-import { riskNumToString } from "../utils/helpers";
+import { riskNumToString, calculateAssessmentLevel } from "../utils/helpers";
+
 // Component to display aggregated assessment information for a company
 const AssesmentCard = ({ companyData, allCompanies, onClick }) => {
-  // Get all entries for this company and sum their weighted risk levels
-  const companyEntries = allCompanies.filter((c) => c.name === companyData.name);
   
-  // Apply weights: Low=1, Medium=2, High=3
-  const weights = { 1: 1, 2: 2, 3: 4 };
-  
-  // Calculate total weighted sum and assessment level percentage
-  const totalWeightedSum = companyEntries.reduce((sum, c) => {return sum + weights[c.riskLevel] || 0}, 0);
-  const maxPossibleWeight = 4 * companyEntries.length; // Maximum weight if all entries are High Risk
-  const assessmentLevelPercentage = (totalWeightedSum / maxPossibleWeight) * 100;
-  const aggregatedRiskLevel = assessmentLevelPercentage < 34 ? 1 : assessmentLevelPercentage < 67 ? 2 : 3;
-  
+  const { assessmentLevelPercentage, aggregatedRiskLevel } = calculateAssessmentLevel(companyData.name, allCompanies);
+
   return (
     <div className="assessment-card" onClick={onClick}>
       <div className="assessment-card-company-info">
@@ -27,7 +19,9 @@ const AssesmentCard = ({ companyData, allCompanies, onClick }) => {
       <div className="assessment-card-level">
         <p
           className={`assessment-text bold-text ${
-            aggregatedRiskLevel === 1
+            aggregatedRiskLevel === 0
+            ? "no-risk"
+            : aggregatedRiskLevel === 1
               ? "low-risk"
               : aggregatedRiskLevel === 2
               ? "med-risk"

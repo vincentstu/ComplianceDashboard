@@ -9,7 +9,7 @@ const PageHeader = () => {
         <img src={ShieldIcon} alt="ShieldIcon" />
         <div>
           <h1 className="dashboard-title">Risk Assessment</h1>
-          <h2 className="dashboard-subtitle">Business Partner risk analysis</h2>
+          <h2 className="dashboard-subtitle">Business Partner Risk Analysis</h2>
         </div>
       </div>
       <a href="https://www.kiongroup.com/en/" target="_blank" style={{alignSelf: "center", cursor: "pointer"}}>

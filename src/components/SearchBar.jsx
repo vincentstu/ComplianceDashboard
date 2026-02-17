@@ -7,7 +7,7 @@ const SearchBar = ({ value, onChange }) => {
     <div className="search-wrapper">
       <input
         type="text"
-        placeholder="Search"
+        placeholder="Search Company"
         className="search-input"
         value={value}
         onChange={(e) => onChange(e.target.value)}
