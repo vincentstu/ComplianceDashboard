@@ -66,6 +66,71 @@ export const mockData = [
     link: "https://www.tagesschau.de/ausland/amerika/usa-oeltanker-102.html",
     verified: false,
   },
+  {
+    id: 6,
+    name: "GION Group",
+    riskCategory: "Security and Cyber risk, Reputational risk",
+    riskLevel: 3,
+    date: "22.02.2026",
+    reasoning:
+      "The incident poses a compliance risk for GION because the hidden backdoor could have enabled unauthorized access to sensitive data, potentially leading to violations of data protection laws, contractual obligations, and regulatory requirements. It also highlights weaknesses in third-party oversight and secure software development controls, which may result in legal liability, regulatory scrutiny, and reputational damage.",
+    summary:
+      "A group of eleven business informatics students is suspected of deliberately embedding a hidden backdoor in software developed for the GION Group in order to extract internal company data. The software project was part of an official cooperation between the university and GION and aimed to develop a tool for adverse media analysis. During a routine code review, a supervisor discovered an undocumented function that was later identified as a hidden access mechanism capable of enabling the retrieval of sensitive data via external servers.",
+    link: "https://RealNews.TrustMe/Article270",
+    verified: false,
+  },
+  {
+    id: 7,
+    name: "GION Group",
+    riskCategory: "Politically Exposed Person (PEP) risk",
+    riskLevel: 2,
+    date: "19.02.2026",
+    reasoning:
+      "The incident poses a compliance risk for GION because the hidden backdoor could have enabled unauthorized access to sensitive data, potentially leading to violations of data protection laws, contractual obligations, and regulatory requirements. It also highlights weaknesses in third-party oversight and secure software development controls, which may result in legal liability, regulatory scrutiny, and reputational damage.",
+    summary:
+      "A group of eleven business informatics students is suspected of deliberately embedding a hidden backdoor in software developed for the GION Group in order to extract internal company data. The software project was part of an official cooperation between the university and GION and aimed to develop a tool for adverse media analysis. During a routine code review, a supervisor discovered an undocumented function that was later identified as a hidden access mechanism capable of enabling the retrieval of sensitive data via external servers.",
+    link: "https://RealNews.TrustMe/Article270",
+    verified: false,
+  },
+  {
+    id: 8,
+    name: "GION Group",
+    riskCategory: "Fraud and Tax Evasion risk",
+    riskLevel: 1,
+    date: "01.02.2026",
+    reasoning:
+      "The incident poses a compliance risk for GION because the hidden backdoor could have enabled unauthorized access to sensitive data, potentially leading to violations of data protection laws, contractual obligations, and regulatory requirements. It also highlights weaknesses in third-party oversight and secure software development controls, which may result in legal liability, regulatory scrutiny, and reputational damage.",
+    summary:
+      "A group of eleven business informatics students is suspected of deliberately embedding a hidden backdoor in software developed for the GION Group in order to extract internal company data. The software project was part of an official cooperation between the university and GION and aimed to develop a tool for adverse media analysis. During a routine code review, a supervisor discovered an undocumented function that was later identified as a hidden access mechanism capable of enabling the retrieval of sensitive data via external servers.",
+    link: "https://RealNews.TrustMe/Article270",
+    verified: false,
+  },
+  {
+    id: 9,
+    name: "GION Group",
+    riskCategory: "Environmental pollution risk",
+    riskLevel: 0,
+    date: "05.02.2026",
+    reasoning:
+      "The incident poses a compliance risk for GION because the hidden backdoor could have enabled unauthorized access to sensitive data, potentially leading to violations of data protection laws, contractual obligations, and regulatory requirements. It also highlights weaknesses in third-party oversight and secure software development controls, which may result in legal liability, regulatory scrutiny, and reputational damage.",
+    summary:
+      "A group of eleven business informatics students is suspected of deliberately embedding a hidden backdoor in software developed for the GION Group in order to extract internal company data. The software project was part of an official cooperation between the university and GION and aimed to develop a tool for adverse media analysis. During a routine code review, a supervisor discovered an undocumented function that was later identified as a hidden access mechanism capable of enabling the retrieval of sensitive data via external servers.",
+    link: "https://RealNews.TrustMe/Article270",
+    verified: false,
+  },
+  {
+    id: 10,
+    name: "GION Group",
+    riskCategory: "Environmental pollution risk",
+    riskLevel: 1,
+    date: "28.01.2026",
+    reasoning:
+      "The incident poses a compliance risk for GION because the hidden backdoor could have enabled unauthorized access to sensitive data, potentially leading to violations of data protection laws, contractual obligations, and regulatory requirements. It also highlights weaknesses in third-party oversight and secure software development controls, which may result in legal liability, regulatory scrutiny, and reputational damage.",
+    summary:
+      "A group of eleven business informatics students is suspected of deliberately embedding a hidden backdoor in software developed for the GION Group in order to extract internal company data. The software project was part of an official cooperation between the university and GION and aimed to develop a tool for adverse media analysis. During a routine code review, a supervisor discovered an undocumented function that was later identified as a hidden access mechanism capable of enabling the retrieval of sensitive data via external servers.",
+    link: "https://RealNews.TrustMe/Article270",
+    verified: false,
+  },
 ];
 
 export default mockData;

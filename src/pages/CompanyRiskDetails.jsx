@@ -166,11 +166,11 @@ const CompanyRiskDetails = () => {
           <div className="risk-details-section">
             <p className="sec-risk-text muted-text">Link to article:</p>
             <a
-              href={companyFetch.url}
+              href={companyFetch.link}
               className="prim-risk-text"
               target="_blank"
             >
-              {companyFetch.url || "Missing"}
+              {companyFetch.link || "Missing"}
             </a>
           </div>
           <div className="assess-section">
