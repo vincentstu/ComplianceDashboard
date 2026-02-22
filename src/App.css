@@ -515,3 +515,38 @@ img {
   align-items: flex-start;
   gap: 10px;
 }
+
+.add-category-button {
+  align-self: center;
+  border: 3px solid var(--med-grey);
+  border-radius: var(--border-radius);
+  padding: 8px;
+
+  display: flex;
+  justify-content: center;  /* horizontal center */
+  align-items: center;      /* vertical center */
+
+  line-height: 1;
+}
+
+.assessed-label{
+  border-radius: var(--border-radius);
+  background-color: var(--black);
+  color: var(--white);
+  font-size: var(--text-size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.fetch-company-amount{
+  width: 40px;
+  border-radius: var(--border-radius);
+  padding: 5px;
+  justify-self: center;
+  align-self: center;
+  outline: none;
+}

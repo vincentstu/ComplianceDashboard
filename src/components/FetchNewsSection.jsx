@@ -2,16 +2,21 @@ import { useState } from "react";
 
 const FetchNewsSection = () => {
   const [company, setCompany] = useState("");
+  const [articleAmount, setArticleAmount] = useState(0);
 
   const handleFetch = async () => {
     if (!company) {
       alert("Please enter a company name");
       return;
     }
+    if(articleAmount === 0 || isNaN(articleAmount) || articleAmount > 100){
+      alert("Please enter a valid amount of articles to fetch");
+      return;
+    }
 
     try {
       const response = await fetch(
-        `http://localhost:8000/api/fetch-live?keyword=${company}&limit=1&provider=ndh`,
+        `http://localhost:8000/api/fetch-live?keyword=${company}&limit=${articleAmount}&provider=ndh`,
         {
           method: "POST",
         }
@@ -35,8 +40,8 @@ const FetchNewsSection = () => {
         onChange={(e) => setCompany(e.target.value)}
         placeholder="Enter company name..."
       />
-
-      {/* IMPORTANT: no parentheses here */}
+      <p className="prim-risk-text">Amount of Articles</p>
+      <input className="fetch-company-amount" type="text" placeholder=""/>
       <button
         className="button fetch-run-button"
         onClick={handleFetch}

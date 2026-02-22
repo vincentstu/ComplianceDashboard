@@ -131,8 +131,12 @@ const getRiskLevelFetch = (risk_level) => {
           Back
         </div>
         <div className="risk-details-title">
+          <div style={{display: "flex", flexDirection: "row", alignItems: "center", gap: "10px"}}>
           <h1>{companyFetch.company_name || "Missing"}
-            {companyFetch.verified && <span title="This article has already been assessed by a compliance officer." style={{cursor: "pointer"}}><FlagTriangleRight size={23}/></span>}</h1>
+            
+            </h1>
+            {companyFetch.verified && <span title="This article has already been assessed by a compliance officer." style={{cursor: "pointer"}}><div className="assessed-label">Assessed</div></span>}
+            </div>
           <p>{formatDate(companyFetch.published_at)}</p>
         </div>
         <div className="risk-details-content">
@@ -206,32 +210,71 @@ const getRiskLevelFetch = (risk_level) => {
               {// Split riskCategory string into array and render a dropdown for each category
               riskCategory.split(",").map(item => item.trim())
               .map((category, index) => (
-                <select
-                className="button assess-dropdown"
-                name="riskCategory"
-                value={category}
-                onChange={(e) => {
-                  const newValue = e.target.value;
+      <div
+        key={index}
+        style={{ display: "flex", alignItems: "center", gap: "6px" }}
+      >
+        <select
+          className="button assess-dropdown"
+          value={category}
+          onChange={(e) => {
+            const newValue = e.target.value;
 
+            setRiskCategory((prev) => {
+              const parts = prev
+                ? prev.split(",").map(p => p.trim())
+                : [];
+
+              parts[index] = newValue;
+
+              return parts.join(", ");
+            });
+          }}
+        >
+          {riskCategories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
+
+        {/* ➖ Remove Button */}
+        <div
+          className="button add-category-button"
+          onClick={() => {
+            setRiskCategory((prev) => {
+              const parts = prev
+                ? prev.split(",").map(p => p.trim())
+                : [];
+
+              parts.splice(index, 1);
+
+              return parts.length > 0
+                ? parts.join(", ")
+                : "";
+            });
+          }}
+        >
+          −
+        </div>
+      </div>
+              ))}
+
+              {/* ➕ Add Category Button */}
+              <div
+                className="button add-category-button"
+                style={{ marginTop: "8px" }}
+                onClick={() => {
                   setRiskCategory((prev) => {
-                    // Split the existing riskCategory string into an array, update the changed category, and join it back into a string
-                    const parts = prev
-                      ? prev.split(",").map(p => p.trim())
-                      : [];
-
-                    parts[index] = newValue;
-
-                    return parts.join(", ");
+                    if (!prev || prev.trim() === "") {
+                      return "No Risk"; // first category
+                    }
+                    return prev + ", No Risk"; // append new default
                   });
                 }}
               >
-                {riskCategories.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-              ))}
+                Add
+              </div>
             </div>
             <div className="button delete-button" title="Delete article from database permanently" onClick={handleDelete}>
               Delete Article

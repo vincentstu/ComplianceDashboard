@@ -30,7 +30,7 @@ const AssessmentPage = ({ companies }) => {
     if (activeTags.length === 0) return true;
 
     /* Risk level */
-    return activeTags.includes(riskNumToString(company.riskLevel).toLowerCase());
+    return activeTags.includes(riskNumToString(calculateAssessmentLevel(company.name, companies).aggregatedRiskLevel).toLowerCase());
   }
 
 // Filter companies based on search and active tags
