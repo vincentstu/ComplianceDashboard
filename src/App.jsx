@@ -7,6 +7,7 @@ import CompanyRiskDetails from "./pages/CompanyRiskDetails";
 import CompanyAssessmentDetails from "./pages/CompanyAssessmentDetails";
 import { useEffect } from "react";
 import { mapRiskScoreToLevel } from "./utils/helpers";
+import { mockData } from "./data/companyData";
 
 // Transform API article format to dashboard company format and remove duplicates
 function transformArticlesToCompanies(articles) {
@@ -35,34 +36,14 @@ function transformArticlesToCompanies(articles) {
 
 // The main application component that sets up routing and state management
 function App() {
-
   // Article data set state
-  const [companies, setCompanies] = useState([]);
+  const [companies, setCompanies] = useState(mockData);
 
-  // get article data from database and save it in state  
-  useEffect(() => {
-    fetch("http://localhost:8000/api/articles")
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          const transformedData = transformArticlesToCompanies(data);
-          setCompanies(transformedData);
-          console.log("Transformed articles:", transformedData);
-        }
-      })
-      .catch((err) => console.error("Error fetching articles:", err));
-  }, []);
-  
   return (
     <div>
       <Routes>
         <Route path="/" element={<Home companies={companies} />} />
-        <Route
-          path="/details/:id"
-          element={
-            <CompanyRiskDetails/>
-          }
-        />
+        <Route path="/details/:id" element={<CompanyRiskDetails />} />
         <Route
           path="/assessment-details/:id"
           element={<CompanyAssessmentDetails companyData={companies} />}

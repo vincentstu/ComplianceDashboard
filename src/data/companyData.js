@@ -1,6 +1,6 @@
 // Mock data set for companies and their associated risk information
 //Not used currently
-const companies = [
+export const mockData = [
   {
     id: 1,
     name: "Coca-Cola European Partners France",
@@ -68,4 +68,4 @@ const companies = [
   },
 ];
 
-export default companies;
+export default mockData;
