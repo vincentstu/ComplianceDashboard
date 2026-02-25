@@ -129,7 +129,7 @@ export const mockData = [
     summary:
       "A group of eleven business informatics students is suspected of deliberately embedding a hidden backdoor in software developed for the GION Group in order to extract internal company data. The software project was part of an official cooperation between the university and GION and aimed to develop a tool for adverse media analysis. During a routine code review, a supervisor discovered an undocumented function that was later identified as a hidden access mechanism capable of enabling the retrieval of sensitive data via external servers.",
     link: "https://RealNews.TrustMe/Article270",
-    verified: false,
+    verified: true,
   },
 ];
 

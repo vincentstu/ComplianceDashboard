@@ -37,11 +37,11 @@ const CompanyRiskDetails = () => {
 
   // Helper to map dropdown value back to riskLevel number
   const getRiskNumber = (riskString) => {
-    console.log(riskString);
-    if (riskString === "low") return 25;
-    else if (riskString === "medium") return 50;
-    else if (riskString === "no") return 0;
-    return 100;
+    console.log("we are here", riskString);
+    if (riskString === "Low Risk") return 1;
+    else if (riskString === "Medium Risk") return 2;
+    else if (riskString === "No Risk") return 0;
+    return 3;
   };
 
   //Declare state for risk level, risk category and comment
@@ -60,24 +60,16 @@ const CompanyRiskDetails = () => {
     const ok = window.confirm("Are you sure you want to assess this article?");
     if (!ok) return;
 
-    // Call API to update article assessment in database
-    fetch(`http://localhost:8000/api/articles/${id}/review`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        manual_decision: riskCategory,
-        manual_comment: comment,
-        risk_level: getRiskNumber(riskLevel),
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        alert("Article assessed successfully");
-      })
-      .catch((err) => {
-        console.error("Error assessing article:", err);
-        alert("Failed to assess article");
-      });
+    // Update company in mockData
+    const idx = mockData.findIndex((c) => String(c.id) === String(id));
+    if (idx !== -1) {
+      mockData[idx].verified = true;
+      mockData[idx].riskCategory = riskCategory;
+      mockData[idx].riskLevel = getRiskNumber(riskLevel);
+      mockData[idx].manual_comment = comment;
+    }
+    // Optionally update local state
+    setCompanyFetch({ ...mockData[idx] });
   };
 
   // Handle delete button click to delete article from database
@@ -183,7 +175,7 @@ const CompanyRiskDetails = () => {
                 cursor: "pointer",
               }}
             >
-              View Compliance Comments
+              View Compliance Comment
               <ChevronDown
                 size={20}
                 style={{
